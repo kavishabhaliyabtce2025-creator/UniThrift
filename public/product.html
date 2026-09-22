@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>UniThrift - Academic Marketplace</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"primary-container":"#2b4c6f","status-rented":"#5C4D7D","tertiary-fixed-dim":"#ffb77a","inverse-primary":"#a9c9f2","on-primary":"#ffffff","inverse-on-surface":"#f6f0e8","surface-container-high":"#ede7e0","on-tertiary-container":"#f9a860","primary-fixed-dim":"#a9c9f2","surface-container":"#f3ede5","secondary":"#446651","surface-dim":"#dfd9d2","outline":"#73777f","on-secondary":"#ffffff","on-primary-container":"#9cbce5","error":"#ba1a1a","on-background":"#1d1b17","outline-variant":"#c3c6cf","surface-container-highest":"#e7e2da","on-surface":"#1d1b17","secondary-container":"#c6ecd1","status-pending":"#966A1E","parchment-canvas":"#F9F8F5","on-primary-fixed-variant":"#27496c","surface-container-low":"#f8f3eb","tertiary":"#512a00","secondary-fixed":"#c6ecd1","on-error-container":"#93000a","secondary-fixed-dim":"#aacfb5","surface-bright":"#fef9f1","on-secondary-fixed":"#002111","border-stone":"#DCD7CE","on-tertiary-fixed-variant":"#6d3a00","surface-tint":"#406185","on-primary-fixed":"#001d36","on-secondary-container":"#4a6c56","primary-fixed":"#d1e4ff","surface-variant":"#e7e2da","status-reserved":"#2B4C6F","on-error":"#ffffff","on-tertiary":"#ffffff","inverse-surface":"#32302b","error-container":"#ffdad6","status-available":"#2C6B4F","parchment-surface":"#FFFFFF","status-danger":"#A43737","status-sold":"#64615B","tertiary-container":"#713d00","background":"#fef9f1","tertiary-fixed":"#ffdcc2","parchment-subtle":"#F0EDE6","surface":"#fef9f1","on-surface-variant":"#43474e","on-tertiary-fixed":"#2e1500","surface-container-lowest":"#ffffff","on-secondary-fixed-variant":"#2d4e3a","primary":"#103557"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2rem","space-md":"1rem","gutter":"1.25rem","space-sm":"0.5rem","space-xs":"0.375rem","gutter-mobile":"0.75rem","margin-desktop":"2.5rem","space-2xs":"0.25rem","space-2xl":"3rem","margin":"1.5rem","gutter-desktop":"1.5rem","margin-mobile":"1rem","space-lg":"1.5rem"},"fontFamily":{"display-lg-mobile":["Plus Jakarta Sans"],"label-sm":["Inter"],"label-md":["Inter"],"body-md":["Inter"],"title-md":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Inter"],"headline-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"badge-label":["Inter"],"headline-lg-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"body-sm":["Inter"]},"fontSize":{"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"600"}],"label-md":["13px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"title-md":["16px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"600"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"600"}],"badge-label":["11px",{"lineHeight":"12px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface"><header class="fixed top-0 left-0 right-0 z-50 bg-parchment-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(43,76,111,0.04)]"><div class="bg-secondary-container text-on-secondary-container px-margin-desktop py-space-xs"><div class="max-w-7xl mx-auto flex items-center justify-between font-body-sm text-body-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span><span><strong>Campus Safe Exchange:</strong> Complete your in-person textbook swaps at Library Atrium Station 2 or Student Union Zone.</span></div><div class="hidden md:flex items-center gap-space-md"><span class="text-on-secondary-container/80">Security Desk: Ext. 4022</span><a class="underline font-label-sm text-label-sm text-on-secondary-container" href="#">Safe Meetup Guide</a></div></div></div><div class="h-20 max-w-7xl mx-auto px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-xs" data-path="marketplace" href="#"><img alt="UniThrift Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Xx_mqRPLtTgJj-jlHghcxW7XoMD777Q-VTMvPu3u4EbW4OmUZXp-4ka0YW00XH7kG2gEsVLhqo14qMiIeKoZttL2HHUNRxB9fntGYEZnfuvVyAHBRanMxytPc5xJnvvRJHUORTGPzD9TMXW2_ZGbNdbIlZpXn1PrHvmvkRXF-8_JuBzGI-_IiqlC_ZKbwXuefPgKIl1rG72m9zNr85zSDBN968sND0zH5NKc2y-fWR6Z1AU2h9PqFePW2W"/><div class="flex flex-col"><span class="font-title-md text-title-md text-primary tracking-tight">UniThrift</span><span class="font-label-sm text-label-sm text-on-surface-variant -mt-1">Academic Exchange</span></div></a><div class="hidden lg:flex items-center bg-surface-container-low rounded-lg px-space-xs py-space-2xs"><select class="bg-transparent font-label-md text-label-md text-on-surface-variant focus:outline-none pr-space-xs cursor-pointer"><option value="all">All Depts</option><option value="cse">CSE & IT</option><option value="ece">ECE & EEE</option><option value="mech">Mechanical</option><option value="civil">Civil Eng</option><option value="humanities">Humanities</option></select><div class="w-[1px] h-4 bg-outline-variant mr-space-xs"></div><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-[18px] text-outline">search</span><input class="bg-transparent font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none w-52" placeholder="Search ISBN, title, course code..." type="text"/></div></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-title-md rounded-lg"><a aria-current="page" class="px-space-sm py-space-xs transition-colors bg-primary-container text-on-primary font-title-md rounded-lg" data-path="marketplace" href="#">Marketplace</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors rounded-lg" data-path="post-an-item" href="#">Post an Item</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors rounded-lg" data-path="my-rentals-and-orders" href="#">My Rentals & Orders</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors rounded-lg" data-path="messages" href="#">Messages</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors rounded-lg" data-path="admin-dashboard" href="#">Admin Dashboard</a></nav><div class="flex items-center gap-space-sm"><a aria-label="Wishlist" class="relative p-space-xs text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center" data-path="wishlist" href="#"><span class="material-symbols-outlined text-[22px]">bookmark</span><span class="absolute top-1 right-1 w-4 h-4 bg-status-reserved text-on-primary font-badge-label text-[9px] rounded-full flex items-center justify-center">3</span></a><a aria-label="Notifications" class="relative p-space-xs text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center" data-path="notifications" href="#"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 bg-status-danger rounded-full"></span></a><div class="flex items-center gap-space-xs pl-space-xs"><div class="hidden md:flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface">Ananya R.</span><span class="font-label-sm text-label-sm text-on-surface-variant">CSE • Sem 6</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMv8N1HmE5fJrSQX-H8c6IvDNBf3SAr-18nzWSbFWQWWtXU-wzA2DfdCJB2rKvlJNmx06XK6twjg-YMXinD8GwxzKbywYbq-cWg9jdDbhWXyBNyWhXWmiYgvjE8w2XyPhczqdcBb64Qutfj3gd_-G9xTtvY5VgVJAh4FWazHJQtwHLpMM60dclXnr7ck2evmz66P3ngkAQT7UARuaQ9ApsffKcnrichmA9tD5p6MTybFODfV8r-SRG-A"/></div></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]"><div class="flex flex-col w-full">
+<!-- Breadcrumbs & Quick Meta Navigation -->
+<div class="max-w-7xl mx-auto px-margin-desktop w-full py-space-sm">
+<nav class="flex items-center gap-space-2xs text-on-surface-variant font-label-md text-label-md">
+<a class="hover:text-primary transition-colors" data-path="marketplace" href="#">Marketplace</a>
+<span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Textbooks</a>
+<span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Computer Science</a>
+<span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span>
+<span class="text-on-surface font-title-md truncate max-w-xs md:max-w-md">Database System Concepts (7th Ed.)</span>
+</nav>
+</div>
+<!-- Primary Two-Column Product Matrix -->
+<div class="max-w-7xl mx-auto px-margin-desktop w-full pb-space-2xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- LEFT COLUMN: Product Visuals, Condition Breakdown, Specs, Seller Identity (Cols 1-7) -->
+<div class="lg:col-span-7 flex flex-col gap-space-xl">
+<!-- Gallery Container -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-surface-container-high mb-space-sm">
+<img alt="Database System Concepts 7th Edition cover" class="w-full h-full object-cover transition-opacity duration-200" data-alt="Front cover photograph of Database System Concepts 7th edition textbook laid flat on a clean solid oak university study desk beside a notebook. Warm natural scholastic daylight, sharp focus on title and McGraw Hill spine emblem, authentic textbook feel." id="main-gallery-view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTsAdsIdABTt34zNaPeJq3N90y8oSl2sQEGEnXXMoBecHfpJacNTGVNNYAKa97juNvcZ7kvj2fxCOUz5rbTitAu9RiwFhw5vDEG2MACvW-zEkOLTll6q2cWkQYRQr8DvHuCbE0VwzCO2sXmvqBzVaMur42IxhPmqa6AdlReWcW8K_r7EPgQs3mf5pWHRCrTN1T3LEBAQ0ccp5qX73q3ek7q7fprh_bAR88yfyTjHzwpLysLJ2CnGfsSA"/>
+<div class="absolute top-space-sm right-space-sm flex items-center gap-space-2xs bg-surface-container-lowest/90 backdrop-blur-sm px-space-xs py-space-2xs rounded-full shadow-sm">
+<span class="w-2 h-2 rounded-full bg-status-available"></span>
+<span class="font-badge-label text-badge-label text-status-available uppercase tracking-wider">Condition: Very Good</span>
+</div>
+<div class="absolute bottom-space-sm left-space-sm bg-primary/80 backdrop-blur-sm text-on-primary px-space-xs py-space-2xs rounded text-label-sm font-label-sm flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+<span>4 Real Campus Photos</span>
+</div>
+</div>
+<!-- Thumbnail Strip with active state selector JS hooks -->
+<div class="grid grid-cols-4 gap-space-sm">
+<button class="gallery-thumb active-thumb relative aspect-[4/3] rounded overflow-hidden bg-surface-container shadow-sm transition-all focus:outline-none" onclick="changeThumbnail(this, 'Front cover photograph of Database System Concepts 7th edition textbook laid flat on a clean solid oak university study desk beside a notebook. Warm natural scholastic daylight, sharp focus on title and McGraw Hill spine emblem, authentic textbook feel.')">
+<img alt="Front Cover" class="w-full h-full object-cover" data-alt="Front cover photograph of Database System Concepts 7th edition textbook laid flat on a clean solid oak university study desk beside a notebook. Warm natural scholastic daylight, sharp focus on title and McGraw Hill spine emblem, authentic textbook feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWZjvf0zbRVNEmOoKACEP7XnoqPFrBVaKl2jEmQQ58OyLdhqTfPuEgFZ3dbDbDZOzWmfkHM0iJyO-ifDQF1znCXmx8EXtivtQ7EQev4fhhyw7B-LPS9COrKGFb_Ur6n3ZInOqMkq6B5HA3-4qFecoOAff8bcHtp4hSf3OrKcZ9BYysB1JmjYFh9WCXO_ctyVUPqyPAxfxx4MXIOj6OKHk_bPh23DDFTsmAPC0g6XTDkK9NJIpeBFqzXQ"/>
+<span class="absolute bottom-0 inset-x-0 bg-primary-container text-on-primary text-[9px] font-label-sm text-center py-0.5">Cover</span>
+</button>
+<button class="gallery-thumb relative aspect-[4/3] rounded overflow-hidden bg-surface-container shadow-sm transition-all focus:outline-none" onclick="changeThumbnail(this, 'Close-up shot of crisp interior pages of Database System Concepts textbook showing clean typography of Chapter 4 Relational Algebra with light yellow highlighter on only two definition paragraphs, pristine white paper margins.')">
+<img alt="Interior Annotation View" class="w-full h-full object-cover" data-alt="Close-up shot of crisp interior pages of Database System Concepts textbook showing clean typography of Chapter 4 Relational Algebra with light yellow highlighter on only two definition paragraphs, pristine white paper margins." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWoCudl86Z6O67hRaM0VOja8HrKN9by_TlJQOKA_ugy7gKlU5kwzhhhqd3t_zkjVeF6HOia60SB00GEd5AENwCOVH6-09ebUfsKNF0T3rJO84onOwzaTlnq710DqGm3dVPY_6B8ZjA3nAFeXd0OWFrO_wvJwVIpj2t3mbCiv9EX3nAX7yUwGa66IM7Crv5wrl8mNzb2Q1nBxStaZlDrTNMUXbEFwMDeMZJg-SeVqcRps0A4k3GRjqqaA"/>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-highest text-on-surface-variant text-[9px] font-label-sm text-center py-0.5">Chapter 4</span>
+</button>
+<button class="gallery-thumb relative aspect-[4/3] rounded overflow-hidden bg-surface-container shadow-sm transition-all focus:outline-none" onclick="changeThumbnail(this, 'Side angle macro photograph of textbook spine and tight Smyth-sewn binding showing sturdy intact spine with no loose sheets or creasing, university library desk background.')">
+<img alt="Binding Inspection" class="w-full h-full object-cover" data-alt="Side angle macro photograph of textbook spine and tight Smyth-sewn binding showing sturdy intact spine with no loose sheets or creasing, university library desk background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiCTsvFItjP8VtyM1hiFKIZcRBkbwAqo5c16iq5cDx5HBwYaM21YJsBUlo_RG_kE3Sk2YosP6ZGckfMkYCiUEQk0KW4g2giqPdtLlSG7-SK0q4YXD9a8kdspN7ygxuKPgesBC6v2tdzN539omdGx6bJUNgtG_oGkX1Cs1WGF-lVH-45uJv3uerSxiKhncLdyOJ62jpEh8YIVrpkc3RZGpNgtKQ_RKw16AVy82a3x7k5YVyh7Yvk6fm-A"/>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-highest text-on-surface-variant text-[9px] font-label-sm text-center py-0.5">Binding</span>
+</button>
+<button class="gallery-thumb relative aspect-[4/3] rounded overflow-hidden bg-surface-container shadow-sm transition-all focus:outline-none" onclick="changeThumbnail(this, 'Detail macro photo of the textbook copyright and edition verification page clearly showing 7th Edition, ISBN 978-0078022159 and McGraw-Hill publication data, authentic student verification stamp.')">
+<img alt="Edition & ISBN page" class="w-full h-full object-cover" data-alt="Detail macro photo of the textbook copyright and edition verification page clearly showing 7th Edition, ISBN 978-0078022159 and McGraw-Hill publication data, authentic student verification stamp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArqc-gDmlgiuYVa348CSFicmSXVhEJJTqwiszmD2hPsOI82MaNDI25cAr-6kH2fsny4K7WfzpgzRcPBFDkG6qOoyIrMnzMRa1iXR-3cNI-WKipNxMls_5TCvoqNSbsRH9EenHhhFTYS2BNuH44FwL5cEbSE25_PsdkJ9liEPtAdlO3JaFhKMdJ0wdEt9N-du6sQO-ZdLT97mXPuOk5j6KqwYCnQCYaliLv3CXjBcCRZZBZkGMokbCuNA"/>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-highest text-on-surface-variant text-[9px] font-label-sm text-center py-0.5">ISBN Page</span>
+</button>
+</div>
+</div>
+<!-- Academic Integrity & Condition Checklist -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[22px]">checklist</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Condition Audit & Transparency</h2>
+</div>
+<span class="font-label-sm text-label-sm px-space-xs py-space-2xs bg-secondary-container text-on-secondary-container rounded-full">Manual In-Hand Audit</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<div class="flex items-start gap-space-xs p-space-sm bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Zero Missing Pages</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">All 1,376 pages verified, including appendices A through E and index.</p>
+</div>
+</div>
+<div class="flex items-start gap-space-xs p-space-sm bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined text-status-pending text-[20px] mt-0.5">ink_highlighter</span>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Mild Highlighter: Chapter 4</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Neat yellow highlighter strictly limited to 6 pages in Relational Algebra.</p>
+</div>
+</div>
+<div class="flex items-start gap-space-xs p-space-sm bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">verified</span>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Hardcover Binding Intact</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">No corner splitting, spine is tight, pages hold firm without wobbling.</p>
+</div>
+</div>
+<div class="flex items-start gap-space-xs p-space-sm bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">edit_off</span>
+<div>
+<p class="font-title-md text-title-md text-on-surface">No Pen Markings or Answers</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Problem sets and chapter review questions are 100% unmarked.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- DBMS Mapped Technical Specifications Table -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">schema</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Curriculum & Catalog Attributes</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono bg-surface-container px-space-xs py-space-2xs rounded">ENTITY: ITEM_CATALOG</span>
+</div>
+<div class="divide-y divide-surface-container">
+<div class="grid grid-cols-3 py-space-xs text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant col-span-1">Title</span>
+<span class="font-body-md text-body-md text-on-surface col-span-2 font-medium">Database System Concepts</span>
+</div>
+<div class="grid grid-cols-3 py-space-xs text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant col-span-1">Authors</span>
+<span class="font-body-md text-body-md text-on-surface col-span-2">Abraham Silberschatz, Henry F. Korth, S. Sudarshan</span>
+</div>
+<div class="grid grid-cols-3 py-space-xs text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant col-span-1">Edition & Year</span>
+<span class="font-body-md text-body-md text-on-surface col-span-2">7th Edition (McGraw-Hill Education, 2019)</span>
+</div>
+<div class="grid grid-cols-3 py-space-xs text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant col-span-1">ISBN-13 / Barcode</span>
+<span class="font-body-md text-body-md text-on-surface col-span-2 font-mono text-primary">978-0078022159</span>
+</div>
+<div class="grid grid-cols-3 py-space-xs text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant col-span-1">Prescribed Course</span>
+<span class="font-body-md text-body-md text-on-surface col-span-2 flex items-center gap-space-2xs">
+<span class="bg-surface-container-high px-1.5 py-0.5 rounded text-xs font-bold">CS303</span>
+<span>Database Management Systems (Semester 4/5)</span>
+</span>
+</div>
+<div class="grid grid-cols-3 py-space-xs text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant col-span-1">Department</span>
+<span class="font-body-md text-body-md text-on-surface col-span-2">Computer Science & Information Technology</span>
+</div>
+<div class="grid grid-cols-3 py-space-xs text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant col-span-1">Original Retail Price</span>
+<span class="font-body-md text-body-md text-on-surface-variant line-through col-span-2">₹148.50</span>
+</div>
+</div>
+</div>
+<!-- Student Seller Identity Card -->
+<div class="bg-surface-container-low rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md mb-space-md">
+<div class="flex items-center gap-space-sm">
+<img alt="Seller Avatar - Ananya R." class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="Close-up portrait of female university computer engineering student Ananya wearing circular spectacles and collegiate navy pullover with genuine warm smile, library study bookshelves background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Ehtxzq8rpJfRtamByT1fyseCydQQtdUAanY1xcFdC_ELSPqd6_xfYzUMaNIbhwxwvDOWGCjDRkrOnF4or98P8EzGRcnhf7SizZvxSbua5YDWZAv7RpKiKzlPfNn8cNTxjhxt_ojGZ2n7z8-hbd-aQWYoph_5A4amXXUTkhGmPsc-MrByTiOGdwsY7PTeFF3o0gZcRto09-cvbJthoIKhBn4f2mAZHxDbiZbYWP0BPXHfEkpFHOdIcQ"/>
+<div>
+<div class="flex items-center gap-space-2xs">
+<h3 class="font-title-md text-title-md text-on-surface">Ananya Ramaswamy</h3>
+<span class="material-symbols-outlined text-secondary text-[18px]" title="Student Identity Confirmed">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">CSE Major • Junior Year (Class of 2025)</p>
+<div class="flex items-center gap-space-xs mt-1">
+<span class="bg-secondary-container text-on-secondary-container font-badge-label text-badge-label px-space-xs py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">school</span>
+                    Verified @university.edu
+                  </span>
+</div>
+</div>
+</div>
+<!-- Reputation Pill -->
+<div class="flex flex-col sm:items-end">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">4.9</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ 5.0</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">24 campus trades completed</span>
+</div>
+</div>
+<!-- Safe Meetup Preference Strip -->
+<div class="p-space-sm bg-surface-container-lowest rounded-lg flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">pin_drop</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface">Designated In-Person Exchange Spot</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Central Library Lawn or 2nd Floor Reference Desk (Mon-Fri 11:00 AM - 4:30 PM). Monitored safe transaction zone.</p>
+</div>
+<a class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary hover:underline self-center shrink-0" data-path="messages" href="#">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+              Message Seller
+            </a>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Dual Transaction Box & Action Terminal (Cols 8-12) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg lg:sticky lg:top-24">
+<!-- Transaction Master Module -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-md">
+<!-- Mode Switcher (Buy Outright vs Rent per month) -->
+<div class="flex bg-surface-container rounded-lg p-1 mb-space-lg">
+<button class="flex-1 py-space-xs font-title-md text-title-md rounded-md transition-all flex items-center justify-center gap-space-2xs bg-surface-container-lowest text-primary shadow-sm" id="tab-buy" onclick="selectTransactionMode('buy')">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+<span>Buy Outright</span>
+</button>
+<button class="flex-1 py-space-xs font-title-md text-title-md rounded-md transition-all flex items-center justify-center gap-space-2xs text-on-surface-variant hover:text-on-surface" id="tab-rent" onclick="selectTransactionMode('rent')">
+<span class="material-symbols-outlined text-[18px]">date_range</span>
+<span>Rent for Term</span>
+</button>
+</div>
+<!-- Real-Time Availability Callout -->
+<div class="flex items-center gap-space-xs bg-secondary-container/40 p-space-sm rounded-lg mb-space-md">
+<span class="material-symbols-outlined text-secondary text-[20px]">event_available</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface">Available for Immediate Handover</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ready at Library Desk 2 • No active overlapping holds</p>
+</div>
+</div>
+<!-- PANE A: BUY OUTRIGHT DETAILS -->
+<div class="flex flex-col gap-space-md" id="pane-buy">
+<div class="flex items-baseline justify-between pb-space-xs">
+<div>
+<span class="font-display-lg text-display-lg text-primary">₹28.00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-space-2xs">one-time payment</span>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container-highest px-space-xs py-space-2xs rounded text-on-surface" id="save-chip">Save 20% vs Bookstore</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Own the physical textbook permanently for this semester and beyond. Guaranteed no recurring holds or return deadlines. Pay with Cash or Campus UPI at meetup.
+            </p>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-space-2xs font-body-sm text-body-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span>Book Cost:</span>
+<span class="font-medium text-on-surface">₹28.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Campus Platform Fee:</span>
+<span class="font-medium text-secondary">Free (₹0.00)</span>
+</div>
+<div class="flex justify-between text-on-surface font-title-md pt-space-2xs">
+<span>Total Due at Meetup:</span>
+<span class="text-primary font-bold">₹28.00</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary font-title-md py-space-md rounded-lg shadow-sm transition-all flex items-center justify-center gap-space-xs" onclick="openReservationModal('buy', 28.00)">
+<span class="material-symbols-outlined text-[20px]">handshake</span>
+<span>Reserve Textbook for Campus Pickup</span>
+</button>
+</div>
+<!-- PANE B: RENT PER TERM DETAILS (Default hidden, toggled via JS) -->
+<div class="hidden flex flex-col gap-space-md" id="pane-rent">
+<div class="flex items-baseline justify-between pb-space-xs">
+<div>
+<span class="font-display-lg text-display-lg text-secondary">₹6.00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-space-2xs">/ month</span>
+</div>
+<span class="font-label-sm text-label-sm bg-secondary-container text-on-secondary-container px-space-xs py-space-2xs rounded">Refundable Deposit Model</span>
+</div>
+<!-- Dynamic Date Picker Inputs -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Rental Start Date</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-body-sm p-space-xs rounded-lg text-body-sm focus:outline-none focus:bg-surface-container-low shadow-sm" id="rent-start-date" onchange="recalculateRental()" type="date" value="2024-10-10"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Planned Return Date</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-body-sm p-space-xs rounded-lg text-body-sm focus:outline-none focus:bg-surface-container-low shadow-sm" id="rent-end-date" onchange="recalculateRental()" type="date" value="2024-12-15"/>
+</div>
+</div>
+</div>
+<!-- Dynamic Ledger Calculation Box -->
+<div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-space-xs font-body-sm text-body-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span>Calculated Term:</span>
+<span class="font-medium text-on-surface" id="rental-duration-text">66 days (~2.2 months)</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Rental Base Fee (<span id="rental-rate-text">₹0.00</span>/day):</span>
+<span class="font-medium text-on-surface" id="rental-fee-text">₹13.20</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="flex items-center gap-1">
+                  Refundable Security Deposit:
+                  <span class="material-symbols-outlined text-[14px] text-outline" title="Full deposit is credited back immediately upon return check at Library Atrium">help</span>
+</span>
+<span class="font-medium text-on-surface" id="rental-deposit-text">₹0.00</span>
+</div>
+<div class="flex justify-between text-on-surface font-title-md pt-space-2xs">
+<span>Payable at Collection:</span>
+<span class="text-secondary font-bold" id="rental-total-text">₹23.20</span>
+</div>
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim/80 text-on-surface-variant text-[11px] mt-1">
+                * Note: The full deposit is refunded to your campus balance the instant return condition is logged.
+              </p>
+</div>
+<button class="w-full bg-secondary hover:bg-secondary/90 text-on-secondary font-title-md py-space-md rounded-lg shadow-sm transition-all flex items-center justify-center gap-space-xs" onclick="openReservationModal('rent', 23.20)">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span>Lock Reservation & Schedule Meetup</span>
+</button>
+</div>
+<!-- Safe Meetup Campus Banner (FR-11) -->
+<div class="mt-space-lg pt-space-md flex items-start gap-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[22px] shrink-0">shield_lock</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">100% In-Person Campus Exchange Guarantee</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Inspect binding, check chapter annotations, and confirm ISBN right in front of the seller before dispensing cash or confirming digital receipt. If dissatisfied, walk away freely.
+              </p>
+</div>
+</div>
+<!-- Academic DBMS Schema Mapping Badge (Technical requirement FR-12) -->
+<div class="mt-space-md p-space-xs bg-surface-container rounded-lg font-mono text-[11px] text-on-surface-variant">
+<div class="flex items-center justify-between font-label-sm text-label-sm mb-1 text-primary">
+<span class="flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[13px]">database</span>
+                Database Schema Trace
+              </span>
+<span>ITEM_ID: #TXT-7391</span>
+</div>
+<p class="text-[10px] text-outline leading-tight" id="schema-trace-text">
+              Action binds to: <code class="text-on-surface">ORDER(order_id, buyer_id=U409, seller_id=U108, item_id=7391, status='RESERVED', total=28.00)</code>
+</p>
+</div>
+</div>
+<!-- Course Syllabus Match Card -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[28px]">menu_book</span>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Official Syllabus Match</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Prescribed as Core Reading by Prof. H. Martinez</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM SECTION: Peer Reviews & Course Material Cohort (FR-10, FR-11) -->
+<div class="w-full bg-surface-container-low py-space-2xl">
+<div class="max-w-7xl mx-auto px-margin-desktop">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">Academic Feedback</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Verified Student Exchanges for Ananya R.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Real ratings logged by authenticated students after library exchange completion.</p>
+</div>
+<div class="flex items-center gap-space-md bg-surface-container-lowest px-space-md py-space-xs rounded-lg shadow-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">4.9</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ 5.0</span>
+</div>
+<div class="h-4 w-px bg-surface-container"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">100% On-Time Returns</span>
+</div>
+</div>
+<!-- Reviews 3-Col Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-desktop mb-space-2xl">
+<!-- Review 1 -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">3 days ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-space-sm">
+              “Met up at Library Desk 2 right on schedule. The Operating Systems textbook was in exact condition described, virtually pristine. Smooth peer trade!”
+            </p>
+</div>
+<div class="flex items-center gap-space-xs pt-space-xs bg-surface-container-low -mx-space-lg -mb-space-lg p-space-sm rounded-b-xl">
+<div class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-[11px]">VK</div>
+<div class="flex flex-col">
+<span class="font-title-md text-[13px] text-on-surface">Varun K.</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">ECE • Bought 'Modern Operating Systems'</span>
+</div>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">2 weeks ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-space-sm">
+              “Rented Algorithms 3rd Ed for 2 months. Security deposit returned immediately upon drop-off at the student lounge. 100% trustworthy peer.”
+            </p>
+</div>
+<div class="flex items-center gap-space-xs pt-space-xs bg-surface-container-low -mx-space-lg -mb-space-lg p-space-sm rounded-b-xl">
+<div class="w-7 h-7 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-[11px]">SL</div>
+<div class="flex flex-col">
+<span class="font-title-md text-[13px] text-on-surface">Sneha L.</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">CSE • Rented 'CLRS Algorithms'</span>
+</div>
+</div>
+</div>
+<!-- Review 3 -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-surface-container">star</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">1 month ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-space-sm">
+              “Very accommodating with meetup times when my midterm schedule ran late. Highlighting was neat just like the condition notes indicated.”
+            </p>
+</div>
+<div class="flex items-center gap-space-xs pt-space-xs bg-surface-container-low -mx-space-lg -mb-space-lg p-space-sm rounded-b-xl">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-[11px]">DR</div>
+<div class="flex flex-col">
+<span class="font-title-md text-[13px] text-on-surface">Devang R.</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">IT • Bought 'Computer Networks'</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Related Course Materials Cohort (CS303 Curriculum) -->
+<div class="pt-space-lg">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">auto_stories</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Frequently Exchanged Together for CS303</h3>
+</div>
+<a class="font-label-md text-label-md text-primary hover:underline" data-path="marketplace" href="#">View All Computer Science →</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter-desktop">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="relative aspect-[4/3] bg-surface-container">
+<img alt="Introduction to Algorithms" class="w-full h-full object-cover" data-alt="Cover of Introduction to Algorithms CLRS textbook standing upright on study table beside sharp pencils and notebook, academic campus library atmosphere, crisp clean paper texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyBil69t7W8W4HR6NgZB7EfTlYBOkwdQgbqg6qveR-hJvFH0Ebk8jHLui8iDD3w2Ezcg7OZv8UiNVyFwbeG5Pp10g33Qdn2W2aqIAZ2yPxtNe9FjOVCkCmazziyrPdvsLkDMRXzU8aa6kCWP4ST9K1rmDxGOtHxScdWKJtAwKKNwbWCA1qDR4K1oOn7eEqh5BN-Q2E8xD5rrnlZcI5kpu1v5omSVOo0zOKRkrNdQqFgayFiXjorbQFaQ"/>
+<span class="absolute top-2 right-2 bg-secondary-container text-on-secondary-container font-badge-label text-[10px] px-2 py-0.5 rounded-full">Rent: ₹8/mo</span>
+</div>
+<div class="p-space-sm">
+<p class="font-label-sm text-label-sm text-outline">CS301 • Core</p>
+<h4 class="font-title-md text-title-md text-on-surface line-clamp-1 mt-0.5">Introduction to Algorithms (4th Ed)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cormen, Leiserson, Rivest</p>
+</div>
+</div>
+<div class="p-space-sm pt-0 flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">₹34.00</span>
+<button class="bg-surface-container hover:bg-surface-container-high text-primary px-space-xs py-1 rounded text-label-sm font-label-sm">View Item</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="relative aspect-[4/3] bg-surface-container">
+<img alt="Operating Systems" class="w-full h-full object-cover" data-alt="Modern Operating Systems textbook by Tanenbaum on a clean student table with highlighters and sticky notes, scholarly lighting, clean condition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3ahsS2uNvHflYWMJZ_6vertPPDgvpyaZY9w7wQdafaReGy9u8JEGgMZZDx1zv6begZQCXSCV_haOcdOBJwcigfI4CJu5qkrfKdx8t_nAwAiaBoh3tajLcEcEV8xw-zCeYTzpywZCB4uJAJnieTgkh1tOaQCB38e7KwcfzIpYxf8NoRqxV0uIJ3YBtqcAXrT_DXECt7CqBY2sIsRXMgdtQBGL3TMYsQ4NVtaBQ2q3puXFb5Mm6a1UPzA"/>
+<span class="absolute top-2 right-2 bg-surface-container text-on-surface font-badge-label text-[10px] px-2 py-0.5 rounded-full">Buy Only</span>
+</div>
+<div class="p-space-sm">
+<p class="font-label-sm text-label-sm text-outline">CS304 • Core</p>
+<h4 class="font-title-md text-title-md text-on-surface line-clamp-1 mt-0.5">Operating System Concepts (10th Ed)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Silberschatz, Galvin, Gagne</p>
+</div>
+</div>
+<div class="p-space-sm pt-0 flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">₹26.50</span>
+<button class="bg-surface-container hover:bg-surface-container-high text-primary px-space-xs py-1 rounded text-label-sm font-label-sm">View Item</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="relative aspect-[4/3] bg-surface-container">
+<img alt="DBMS Spiral Notes" class="w-full h-full object-cover" data-alt="Spiral bound handwritten lecture notes for Database Management Systems with neat diagrams of B+ trees and normalization, clean scholastic student desk environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_K0iVwGORxoUKTD8ueqxCWAXMtVYyPuuoC_C4gUHSIvQbItFLzWf7Teizq5OuGMiflud8WGgiaNU1--7tdaHsETWr1V99cQlhxh8970WHQ0JyYK8Oc_oaP851m7k-G9CxGBWlSLTY4njDodQ2qajf_hWCuhed8ldRxqIarMjvo7R8nq_pTZyeXXm1maDujbGgpiBuwYJOMU86EQP2NPPyq1cm_nj1xL80nOj8i9a-9vEvsVlcOwyCAQ"/>
+<span class="absolute top-2 right-2 bg-surface-container-highest text-on-surface-variant font-badge-label text-[10px] px-2 py-0.5 rounded-full">Peer Notes</span>
+</div>
+<div class="p-space-sm">
+<p class="font-label-sm text-label-sm text-outline">CS303 • Exam Prep</p>
+<h4 class="font-title-md text-title-md text-on-surface line-clamp-1 mt-0.5">Complete DBMS Handwritten Notes</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Prof. Martinez Section • 92 Pages</p>
+</div>
+</div>
+<div class="p-space-sm pt-0 flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">₹7.00</span>
+<button class="bg-surface-container hover:bg-surface-container-high text-primary px-space-xs py-1 rounded text-label-sm font-label-sm">View Item</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="relative aspect-[4/3] bg-surface-container">
+<img alt="TI Scientific Calculator" class="w-full h-full object-cover" data-alt="Texas Instruments scientific calculator lying beside open engineering graph paper on a clean light university library desk, daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPT8MggvUMvSEj5mWpC1iv8eK2m1DmTOOtbOs_T7Zx0bX7rXJktmAFLUAIgPtYN_gLw_rHQhQxC63oio8BpTmxkB3vr0tfn7RSEF1vWPsW68fxDRXwK4N-ikzKUYesiwVtvHKDmsdbaHXJQCpuMJr8H0UFENgT08JsaeSyQFoj9DhjwzmUBVW2TFjzyN5cmexRqpcNryXPaT3AozyUZX8vmNaeZUZ4CDZT2PfFGwhE9PQPnWtdVDJgbA"/>
+<span class="absolute top-2 right-2 bg-secondary-container text-on-secondary-container font-badge-label text-[10px] px-2 py-0.5 rounded-full">Rent: ₹4/mo</span>
+</div>
+<div class="p-space-sm">
+<p class="font-label-sm text-label-sm text-outline">Hardware • Tool</p>
+<h4 class="font-title-md text-title-md text-on-surface line-clamp-1 mt-0.5">TI-36X Pro Scientific Calculator</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Approved for all Midterms/Finals</p>
+</div>
+</div>
+<div class="p-space-sm pt-0 flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">₹14.00</span>
+<button class="bg-surface-container hover:bg-surface-container-high text-primary px-space-xs py-1 rounded text-label-sm font-label-sm">View Item</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Reservation Confirmation / Meetup Scheduler Modal Overlay (Dynamic) -->
+<div class="fixed inset-0 z-50 bg-primary/40 backdrop-blur-[2px] hidden items-center justify-center p-margin-mobile" id="reservation-modal">
+<div class="bg-surface-container-lowest rounded-xl shadow-xl max-w-lg w-full p-space-lg">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[24px]">verified_user</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface" id="modal-title">Confirm Campus Reservation</h3>
+</div>
+<button class="text-outline hover:text-on-surface p-1" onclick="closeReservationModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md">
+        You are scheduling an authenticated exchange for <strong class="text-on-surface">Database System Concepts (7th Ed)</strong> with <strong class="text-on-surface">Ananya R.</strong>
+</p>
+<div class="bg-surface-container-low p-space-sm rounded-lg mb-space-md flex flex-col gap-space-2xs text-body-sm">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Transaction Mode:</span>
+<span class="font-bold text-primary uppercase" id="modal-mode-badge">Buy Outright</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Scheduled Meetup Spot:</span>
+<span class="font-medium text-on-surface">Library Desk 2 (Atrium)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Handover Amount:</span>
+<span class="font-bold text-secondary text-title-md" id="modal-amount">₹28.00</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs mb-space-lg">
+<label class="font-label-md text-label-md text-on-surface">Select Your Availability Slot</label>
+<select class="w-full bg-surface-container font-body-sm p-space-xs rounded-lg text-on-surface focus:outline-none">
+<option>Tomorrow: 12:30 PM - 1:15 PM (Post CS303 Lecture)</option>
+<option>Tomorrow: 3:30 PM - 4:15 PM (Library Study Hour)</option>
+<option>Thursday: 11:00 AM - 11:45 AM (Morning Slot)</option>
+</select>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+          Seller will receive an automated student email dispatch to accept this time window.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm justify-end">
+<button class="px-space-md py-space-xs font-label-md text-label-md text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" onclick="closeReservationModal()">
+          Cancel
+        </button>
+<button class="bg-primary hover:bg-primary-container text-on-primary px-space-lg py-space-xs font-title-md text-title-md rounded-lg shadow-sm transition-all flex items-center gap-1" onclick="executeReservation()">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span>Submit Reservation</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+    let currentMode = 'buy';
+
+    function selectTransactionMode(mode) {
+      currentMode = mode;
+      const tabBuy = document.getElementById('tab-buy');
+      const tabRent = document.getElementById('tab-rent');
+      const paneBuy = document.getElementById('pane-buy');
+      const paneRent = document.getElementById('pane-rent');
+      const schemaTrace = document.getElementById('schema-trace-text');
+
+      if (mode === 'buy') {
+        tabBuy.className = "flex-1 py-space-xs font-title-md text-title-md rounded-md transition-all flex items-center justify-center gap-space-2xs bg-surface-container-lowest text-primary shadow-sm";
+        tabRent.className = "flex-1 py-space-xs font-title-md text-title-md rounded-md transition-all flex items-center justify-center gap-space-2xs text-on-surface-variant hover:text-on-surface";
+        paneBuy.classList.remove('hidden');
+        paneRent.classList.add('hidden');
+        if (schemaTrace) {
+          schemaTrace.innerHTML = "Action binds to: <code class='text-on-surface'>ORDER(order_id=ORD-902, buyer_id=U409, seller_id=U108, item_id=7391, status='RESERVED', total=28.00)</code>";
+        }
+      } else {
+        tabRent.className = "flex-1 py-space-xs font-title-md text-title-md rounded-md transition-all flex items-center justify-center gap-space-2xs bg-surface-container-lowest text-secondary shadow-sm";
+        tabBuy.className = "flex-1 py-space-xs font-title-md text-title-md rounded-md transition-all flex items-center justify-center gap-space-2xs text-on-surface-variant hover:text-on-surface";
+        paneRent.classList.remove('hidden');
+        paneBuy.classList.add('hidden');
+        recalculateRental();
+      }
+    }
+
+    function recalculateRental() {
+      const startVal = document.getElementById('rent-start-date').value;
+      const endVal = document.getElementById('rent-end-date').value;
+      const durationLabel = document.getElementById('rental-duration-text');
+      const feeLabel = document.getElementById('rental-fee-text');
+      const totalLabel = document.getElementById('rental-total-text');
+      const schemaTrace = document.getElementById('schema-trace-text');
+
+      if (!startVal || !endVal) return;
+
+      const d1 = new Date(startVal);
+      const d2 = new Date(endVal);
+      const diffTime = d2.getTime() - d1.getTime();
+      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays < 14) diffDays = 14; // Min 2 weeks rental policy
+
+      const months = (diffDays / 30).toFixed(1);
+      const rentalFee = (diffDays * 0.20).toFixed(2);
+      const deposit = 10.00;
+      const totalAmount = (parseFloat(rentalFee) + deposit).toFixed(2);
+
+      durationLabel.textContent = `${diffDays} days (~${months} months)`;
+      feeLabel.textContent = `$${rentalFee}`;
+      totalLabel.textContent = `$${totalAmount}`;
+
+      if (schemaTrace && currentMode === 'rent') {
+        schemaTrace.innerHTML = `Action binds to: <code class='text-on-surface'>RENTAL(rental_id=RNT-412, item_id=7391, borrower_id=U409, start='${startVal}', end='${endVal}', rate_per_day=0.20, deposit=10.00, fee=${rentalFee})</code>`;
+      }
+    }
+
+    function changeThumbnail(btn, promptAlt) {
+      const mainImg = document.getElementById('main-gallery-view');
+      const thumbs = document.querySelectorAll('.gallery-thumb');
+      
+      thumbs.forEach(t => {
+        t.classList.remove('active-thumb');
+        t.classList.remove('ring-2');
+        t.classList.remove('ring-primary');
+      });
+
+      btn.classList.add('active-thumb');
+      mainImg.style.opacity = '0.3';
+      setTimeout(() => {
+        mainImg.setAttribute('data-alt', promptAlt);
+        mainImg.style.opacity = '1';
+      }, 150);
+    }
+
+    function openReservationModal(mode, amount) {
+      const modal = document.getElementById('reservation-modal');
+      const modeBadge = document.getElementById('modal-mode-badge');
+      const amountLabel = document.getElementById('modal-amount');
+      const titleLabel = document.getElementById('modal-title');
+
+      if (mode === 'buy') {
+        titleLabel.textContent = 'Confirm Purchase Reservation';
+        modeBadge.textContent = 'Outright Purchase';
+        modeBadge.className = 'font-bold text-primary uppercase';
+      } else {
+        titleLabel.textContent = 'Lock In Rental Term';
+        modeBadge.textContent = 'Term Rental with Deposit';
+        modeBadge.className = 'font-bold text-secondary uppercase';
+      }
+
+      amountLabel.textContent = `$${amount.toFixed(2)}`;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeReservationModal() {
+      const modal = document.getElementById('reservation-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function executeReservation() {
+      alert('Reservation successfully registered in UniThrift exchange ledger! A notification has been sent to Ananya R.');
+      closeReservationModal();
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-low py-space-2xl mt-space-2xl"><div class="max-w-7xl mx-auto px-margin-desktop"><div class="grid grid-cols-1 md:grid-cols-4 gap-gutter-desktop mb-space-xl"><div class="flex flex-col gap-space-xs"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary">UniThrift</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">A dedicated peer-to-peer university academic material exchange and textbook rental system designed to eliminate academic resource costs.</p><div class="mt-space-xs inline-flex items-center gap-space-2xs bg-surface-container px-space-xs py-space-2xs rounded"><span class="material-symbols-outlined text-[14px] text-secondary">shield</span><span class="font-label-sm text-label-sm text-on-surface">Student ID Verified Trade</span></div></div><div><h4 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm">Campus Safety Tips</h4><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li>• Meet inside monitored campus library exchange desks.</li><li>• Inspect book condition and binding before rental sign-off.</li><li>• Confirm digital returns using registered campus email.</li><li>• Report listing discrepancies to student guild mediators.</li></ul></div><div><h4 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm">DBMS & Academic Info</h4><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li><a class="hover:text-primary transition-colors" data-path="schema-documentation" href="#">Database Schema Docs</a></li><li><a class="hover:text-primary transition-colors" data-path="rental-contracts-model" href="#">Rental Ledger Model</a></li><li><a class="hover:text-primary transition-colors" data-path="student-directory" href="#">Student Directory Links</a></li><li><a class="hover:text-primary transition-colors" data-path="curriculum-booklist" href="#">Syllabus Prescribed Readings</a></li></ul></div><div><h4 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm">College Departments</h4><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li><a class="hover:text-primary transition-colors" data-path="dept-cse" href="#">Computer Science & Eng.</a></li><li><a class="hover:text-primary transition-colors" data-path="dept-ece" href="#">Electronics & Comm.</a></li><li><a class="hover:text-primary transition-colors" data-path="dept-mech" href="#">Mechanical & Aerospace</a></li><li><a class="hover:text-primary transition-colors" data-path="dept-biotech" href="#">Biotechnology & Sciences</a></li></ul></div></div><div class="pt-space-md flex flex-col md:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-body-sm text-body-sm"><p>© 2024 UniThrift Exchange. Department of Computer Science and Engineering Academic Project.</p><div class="flex items-center gap-space-md"><a class="hover:text-primary transition-colors" href="#">Peer Rental Guidelines</a><a class="hover:text-primary transition-colors" href="#">Dispute Resolution</a><a class="hover:text-primary transition-colors" href="#">Campus Security</a></div></div></div></footer></body></html>

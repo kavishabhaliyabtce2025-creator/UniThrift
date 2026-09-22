@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Rentals &amp; Orders · UniThrift</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}::-webkit-scrollbar{display:none;}}</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-[#121318] min-h-screen text-[#f8fafc]">
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#121318]/90 backdrop-blur-md border-b border-[#272a34]">
+  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
+    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2">
+      <img alt="UniThrift" class="w-9 h-9 rounded-lg shadow-[0_0_12px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
+      <div class="flex flex-col leading-none">
+        <span class="font-semibold tracking-tight text-[17px] text-[#f8fafc]">UniThrift</span>
+        <span class="text-[10px] text-[#3b82f6] font-semibold uppercase tracking-[0.14em]">Academic Exchange</span>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-1 text-sm">
+      <a data-path="marketplace" href="/index.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Marketplace</a>
+      <a data-path="post-an-item" href="/post.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Post an Item</a>
+      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-1.5 text-[#3b82f6] hover:text-[#f8fafc] rounded-lg transition-colors font-medium">My Rentals &amp; Orders</a>
+      <a data-path="messages" href="/messages.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Messages</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a data-path="wishlist" href="/wishlist.html" class="relative p-1.5 text-[#94a3b8] hover:text-[#3b82f6] rounded-lg">
+        <span class="material-symbols-outlined text-[22px]">bookmark</span>
+        <span class="wishlist-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] text-white text-[9px] rounded-full items-center justify-center font-bold hidden">0</span>
+      </a>
+      <div class="flex items-center gap-2 pl-2">
+        <div class="hidden md:flex flex-col text-right leading-tight">
+          <span class="text-[13px] text-[#f8fafc]">Guest</span>
+          <span class="text-[11px] text-[#94a3b8]">Sign in to continue</span>
+        </div>
+        <img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-[#272a34]" src="/assets/avatar.png">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-24 pb-20 max-w-7xl mx-auto px-6">
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold tracking-tight">My Rentals &amp; Orders</h1>
+    <p class="text-sm text-[#94a3b8] mt-1">Every purchase request and rental on your UniThrift account — live from the orders &amp; rentals tables.</p>
+  </div>
+
+  <section class="mb-10">
+    <div class="flex items-center gap-3 mb-4">
+      <h2 class="text-lg font-semibold">Purchases</h2>
+      <span class="px-2 py-0.5 rounded-full bg-[#2563eb]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-[11px] font-bold" id="buyer-count">0</span>
+    </div>
+    <div id="buyer-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+  </section>
+
+  <section>
+    <div class="flex items-center gap-3 mb-4">
+      <h2 class="text-lg font-semibold">Sales</h2>
+      <span class="px-2 py-0.5 rounded-full bg-[#2563eb]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-[11px] font-bold" id="seller-count">0</span>
+    </div>
+    <div id="seller-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+  </section>
+</main>
+
+<script src="/js/app.js"></script>
+<script>
+(() => {
+  const CT = window.CT;
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+  const imgOf = (l) => (l.images && l.images[0] && l.images[0].image_url) || `https://picsum.photos/seed/ct-${l.id}/600/450`;
+
+  function card(o, side) {
+    const l = o.listing;
+    const chips = {
+      PENDING: ['bg-amber-400/10 border border-amber-400/30 text-amber-300', 'Pending'],
+      ACCEPTED: ['bg-blue-500/10 border border-blue-500/30 text-blue-300', 'Accepted'],
+      COMPLETED: ['bg-emerald-500/10 border border-emerald-500/30 text-emerald-400', 'Completed'],
+      CANCELLED: ['bg-slate-500/10 border border-slate-500/30 text-slate-400', 'Cancelled'],
+      REJECTED: ['bg-rose-500/10 border border-rose-500/30 text-rose-300', 'Rejected'],
+    }[o.status] || ['bg-slate-500/10 border border-slate-500/30 text-slate-400', o.status];
+    const other = side === 'buyer' ? `Seller: <span class="text-[#f8fafc] font-medium">${l.seller.name}</span>` : `Buyer: <span class="text-[#f8fafc] font-medium">#BUY</span>`;
+    const buyerName = o.buyer ? o.buyer.name : '';
+    const meta = side === 'buyer' ? `Seller: <b class="font-semibold text-[#f8fafc]">${l.seller.name}</b>` : `Buyer: <b class="font-semibold text-[#f8fafc]">${buyerName}</b>`;
+    let actions = '';
+    if (side === 'buyer') {
+      if (o.status === 'PENDING') actions = `<button class="px-3 py-1.5 rounded-lg bg-rose-600/20 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white text-[13px] font-medium transition-colors" data-act="cancel" data-id="${o.id}">Cancel request</button>`;
+      if (o.status === 'ACCEPTED') actions = `<span class="text-[12px] text-[#94a3b8] self-center">Mark the meetup complete before the seller finalises the sale.</span>`;
+      if (o.status === 'COMPLETED' && !o.reviewed) actions = `<button class="px-3 py-1.5 rounded-lg bg-[#2563eb] text-white text-[13px] font-medium hover:bg-[#3b82f6] transition-colors" data-act="review" data-id="${o.id}">Leave a review</button>`;
+      if (o.status === 'COMPLETED' && o.reviewed) actions = `<span class="text-[12px] text-emerald-400 flex items-center gap-1"><span class="material-symbols-outlined text-[15px]" style="font-variation-settings:'FILL' 1;">verified</span>Reviewed</span>`;
+    } else {
+      if (o.status === 'PENDING') actions = `
+        <button class="px-3 py-1.5 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 text-white text-[13px] font-medium transition-colors" data-act="accept" data-id="${o.id}">Accept</button>
+        <button class="px-3 py-1.5 rounded-lg bg-rose-600/20 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white text-[13px] font-medium transition-colors" data-act="reject" data-id="${o.id}">Reject</button>`;
+      if (o.status === 'ACCEPTED') actions = `<button class="px-3 py-1.5 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 text-white text-[13px] font-medium transition-colors" data-act="complete" data-id="${o.id}">Mark handover complete</button>`;
+      if (o.status === 'PENDING' || o.status === 'ACCEPTED') actions += `<button class="px-3 py-1.5 rounded-lg bg-rose-600/20 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white text-[13px] font-medium transition-colors" data-act="cancel" data-id="${o.id}">Cancel</button>`;
+    }
+    return `
+    <div class="bg-[#1a1b21] border border-[#272a34] rounded-xl overflow-hidden" data-order="${o.id}">
+      <div class="flex gap-3.5 p-4">
+        <img class="w-16 h-20 object-cover rounded-lg flex-shrink-0" src="${imgOf(l)}" alt="" loading="lazy">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="font-semibold text-[15px] truncate group-hover:text-[#3b82f6]"><a class="hover:text-[#3b82f6]" href="/product.html?id=${l.id}">${l.product.name}</a></h3>
+            <span class="shrink-0 px-2 py-0.5 rounded-full font-label-sm text-[10px] uppercase font-bold w-max ${chips[0]}">${chips[1]}</span>
+          </div>
+          <p class="text-[12px] text-[#94a3b8] mt-1">${meta} · Order #${o.id}</p>
+          <p class="text-[12px] text-[#94a3b8]">${(o.date || '').slice(0, 10)}</p>
+          <p class="font-bold text-[#3b82f6] mt-1.5">${CT.money(o.amount)}</p>
+        </div>
+      </div>
+      <div class="px-4 pb-4 flex flex-wrap gap-2">${actions}</div>
+    </div>`;
+  }
+
+  function reviewForm(orderId) {
+    return `
+    <div class="w-full border border-[#272a34] bg-[#0d0e13] rounded-lg p-3" data-review-form="${orderId}">
+      <p class="text-[13px] font-medium mb-2">Rate this exchange (1–5)</p>
+      <div class="flex gap-1 mb-3" data-stars>
+        ${[1, 2, 3, 4, 5].map((n) => `<button class="star text-[22px] text-[#64748b] hover:text-amber-400 transition-colors" data-val="${n}">★</button>`).join('')}
+      </div>
+      <textarea class="w-full bg-[#121318] border border-[#272a34] rounded-lg px-3 py-2 text-sm text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6]" rows="2" placeholder="How was the handover, condition and communication?"></textarea>
+      <div class="flex justify-end gap-2 mt-3">
+        <button class="px-3 py-1.5 rounded-lg bg-slate-600/20 text-[#94a3b8] text-[13px]" data-act="review-cancel">Cancel</button>
+        <button class="px-3 py-1.5 rounded-lg bg-[#2563eb] hover:bg-[#3b82f6] text-white text-[13px] font-medium" data-act="review-submit" data-id="${orderId}">Submit review</button>
+      </div>
+    </div>`;
+  }
+
+  async function load() {
+    const d = await CT.api('/api/my/orders');
+    $('#buyer-count').textContent = d.asBuyer.length;
+    $('#seller-count').textContent = d.asSeller.length;
+    $('#buyer-grid').innerHTML = d.asBuyer.length
+      ? d.asBuyer.map((o) => card(o, 'buyer')).join('')
+      : emptyMsg('No purchases yet — explore the marketplace to buy used texts and gear.');
+    $('#seller-grid').innerHTML = d.asSeller.length
+      ? d.asSeller.map((o) => card(o, 'seller')).join('')
+      : emptyMsg('Nothing for sale yet — post an item and start earning.');
+  }
+
+  const emptyMsg = (t) => `<div class="col-span-full bg-[#1a1b21] border border-[#272a34] rounded-xl p-10 text-center text-[#94a3b8] text-sm">${t}</div>`;
+
+  async function act(id, body) {
+    try {
+      const d = await CT.api(`/api/orders/${id}`, { method: 'PUT', body });
+      CT.showToast(d.message || 'Done.');
+      await load();
+    } catch (err) { CT.showToast(err.message, true); }
+  }
+
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-act]');
+    if (!btn) return;
+    const actName = btn.dataset.act;
+    if (actName === 'review') {
+      const cardEl = btn.closest('[data-order]');
+      const actions = cardEl.querySelector(':scope > div:last-child');
+      actions.innerHTML = reviewForm(+btn.dataset.id);
+      return;
+    }
+    if (actName === 'review-cancel') {
+      load();
+      return;
+    }
+    if (actName === 'review-submit') {
+      const form = btn.closest('[data-review-form]');
+      const rating = +(form.querySelector('.star[data-selected]') || {}).dataset?.val || 0;
+      const comment = form.querySelector('textarea').value.trim();
+      if (!rating) { CT.showToast('Pick a star rating (1–5).', true); return; }
+      try {
+        await CT.api('/api/reviews', { body: { orderId: +btn.dataset.id, rating, comment } });
+        CT.showToast('Review submitted. Thank you!');
+        await load();
+      } catch (err) { CT.showToast(err.message, true); }
+      return;
+    }
+    if (['accept', 'reject', 'complete', 'cancel'].includes(actName)) act(+btn.dataset.id, { action: actName });
+  });
+
+  document.addEventListener('click', (e) => {
+    const star = e.target.closest('[data-stars] .star');
+    if (!star) return;
+    const wrap = star.closest('[data-stars]');
+    const val = +star.dataset.val;
+    $$('.star', wrap).forEach((s) => {
+      s.classList.toggle('text-amber-400', +s.dataset.val <= val);
+      s.classList.toggle('text-[#64748b]', +s.dataset.val > val);
+      s.dataset.selected = +s.dataset.val <= val ? '1' : '';
+    });
+  });
+
+  (async () => {
+    const u = await CT.me(true);
+    if (!u) { CT.showToast('Please log in to view your orders.', true); setTimeout(() => { location.href = '/login.html?next=/orders.html'; }, 800); return; }
+    try { await load(); } catch (err) { CT.showToast(err.message, true); }
+  })();
+})();
+</script>
+</body>
+</html>

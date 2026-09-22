@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Profile · UniThrift</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}::-webkit-scrollbar{display:none;}}</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-[#121318] min-h-screen text-[#f8fafc]">
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#121318]/90 backdrop-blur-md border-b border-[#272a34]">
+  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
+    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2">
+      <img alt="UniThrift" class="w-9 h-9 rounded-lg shadow-[0_0_12px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
+      <div class="flex flex-col leading-none">
+        <span class="font-semibold tracking-tight text-[17px] text-[#f8fafc]">UniThrift</span>
+        <span class="text-[10px] text-[#3b82f6] font-semibold uppercase tracking-[0.14em]">Academic Exchange</span>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-1 text-sm">
+      <a data-path="marketplace" href="/index.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Marketplace</a>
+      <a data-path="post-an-item" href="/post.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Post an Item</a>
+      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">My Rentals &amp; Orders</a>
+      <a data-path="messages" href="/messages.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Messages</a>
+      <a data-path="admin-dashboard" href="/admin.html" class="admin-link px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors hidden">Admin</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a data-path="wishlist" href="/wishlist.html" class="relative p-1.5 text-[#94a3b8] hover:text-[#3b82f6] rounded-lg">
+        <span class="material-symbols-outlined text-[22px]">bookmark</span>
+        <span class="wishlist-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] text-white text-[9px] rounded-full items-center justify-center font-bold hidden">0</span>
+      </a>
+      <div class="flex items-center gap-2 pl-2">
+        <div class="hidden md:flex flex-col text-right leading-tight">
+          <span class="text-[13px] text-[#f8fafc]">Guest</span>
+          <span class="text-[11px] text-[#94a3b8]">Sign in to continue</span>
+        </div>
+        <img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-[#272a34]" src="/assets/avatar.png">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-24 pb-20 max-w-7xl mx-auto px-6">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- identity card -->
+    <section class="bg-[#1a1b21] border border-[#272a34] rounded-2xl p-6 h-max">
+      <div class="flex items-center gap-4">
+        <img id="prof-avatar" class="w-16 h-16 rounded-full object-cover border-2 border-[#3b82f6]/40" src="/assets/avatar.png" alt="">
+        <div>
+          <h1 id="prof-name" class="text-lg font-bold">—</h1>
+          <p id="prof-role" class="text-[13px] text-[#94a3b8]">Student</p>
+        </div>
+      </div>
+      <dl class="mt-5 space-y-2.5 text-sm">
+        <div class="flex justify-between"><dt class="text-[#94a3b8]">Student ID</dt><dd id="prof-sid" class="font-medium">—</dd></div>
+        <div class="flex justify-between"><dt class="text-[#94a3b8]">Email</dt><dd id="prof-email" class="font-medium">—</dd></div>
+        <div class="flex justify-between"><dt class="text-[#94a3b8]">Department</dt><dd id="prof-dept" class="font-medium">—</dd></div>
+        <div class="flex justify-between"><dt class="text-[#94a3b8]">Year</dt><dd id="prof-year" class="font-medium">—</dd></div>
+        <div class="flex justify-between"><dt class="text-[#94a3b8]">Phone</dt><dd id="prof-phone" class="font-medium">—</dd></div>
+      </dl>
+      <button id="logout-btn" class="mt-6 w-full px-3 py-2 rounded-lg bg-rose-600/20 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white text-sm font-medium transition-colors flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-[17px]">logout</span> Sign out
+      </button>
+    </section>
+
+    <!-- edit + listings -->
+    <div class="lg:col-span-2 space-y-6">
+      <section class="bg-[#1a1b21] border border-[#272a34] rounded-2xl p-6">
+        <h2 class="font-semibold mb-4">Edit profile</h2>
+        <form id="profile-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm text-[#cbd5e1] mb-1.5" for="f-name">Full name</label>
+            <input id="f-name" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-sm text-[#f8fafc] focus:outline-none focus:border-[#3b82f6]" required>
+          </div>
+          <div>
+            <label class="block text-sm text-[#cbd5e1] mb-1.5" for="f-phone">Phone</label>
+            <input id="f-phone" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-sm text-[#f8fafc] focus:outline-none focus:border-[#3b82f6]" required>
+          </div>
+          <div>
+            <label class="block text-sm text-[#cbd5e1] mb-1.5" for="f-dept">Department</label>
+            <input id="f-dept" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-sm text-[#f8fafc] focus:outline-none focus:border-[#3b82f6]" required>
+          </div>
+          <div>
+            <label class="block text-sm text-[#cbd5e1] mb-1.5" for="f-year">Year</label>
+            <input id="f-year" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-sm text-[#f8fafc] focus:outline-none focus:border-[#3b82f6]" required>
+          </div>
+          <div class="sm:col-span-2">
+            <button type="submit" class="px-4 py-2.5 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-lg text-sm font-medium transition-colors">Save changes</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="bg-[#1a1b21] border border-[#272a34] rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-semibold">My listings</h2>
+          <a href="/post.html" class="px-3 py-1.5 rounded-lg bg-[#2563eb]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-[13px] font-medium hover:bg-[#2563eb]/20 transition-colors flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">add</span> New listing
+          </a>
+        </div>
+        <div id="my-listings" class="space-y-3"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script src="/js/app.js"></script>
+<script>
+(() => {
+  const CT = window.CT;
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+  const imgOf = (l) => (l.images && l.images[0] && l.images[0].image_url) || `https://picsum.photos/seed/ct-${l.id}/600/450`;
+
+  function renderListings(listings) {
+    const wrap = $('#my-listings');
+    if (!listings.length) {
+      wrap.innerHTML = `<div class="bg-[#0d0e13] border border-[#272a34] rounded-xl p-8 text-center text-[#94a3b8] text-sm">You haven't posted anything yet. Post your first item!</div>`;
+      return;
+    }
+    wrap.innerHTML = listings.map((l) => `
+      <div class="bg-[#0d0e13] border border-[#272a34] rounded-xl p-3.5 flex items-center gap-3.5">
+        <img class="w-12 h-14 object-cover rounded-lg flex-shrink-0" src="${imgOf(l)}" alt="">
+        <div class="flex-1 min-w-0">
+          <p class="font-medium text-[14px] truncate"><a class="hover:text-[#3b82f6]" href="/product.html?id=${l.id}">${l.product.name}</a></p>
+          <p class="text-[12px] text-[#94a3b8]">${CT.money(l.salePrice ?? l.rentPrice)}${l.salePrice != null && l.rentPrice != null ? ' · rent ' + CT.money(l.rentPrice) + '/day' : ''} · ${l.location}</p>
+        </div>
+        ${CT.statusChip(l.status)}
+        ${['PENDING', 'AVAILABLE', 'RESERVED', 'RENTED'].includes(l.status)
+          ? `<button class="px-2.5 py-1.5 rounded-lg bg-rose-600/20 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white text-[12px] font-medium transition-colors" data-del="${l.id}">Remove</button>`
+          : ''}
+      </div>`).join('');
+    $$('[data-del]', wrap).forEach((b) => b.addEventListener('click', async () => {
+      if (!confirm('Remove this listing? Pending requests will be cancelled.')) return;
+      try {
+        await CT.api('/api/listings/' + b.dataset.del, { method: 'DELETE' });
+        CT.showToast('Listing removed.');
+        loadAll();
+      } catch (err) { CT.showToast(err.message, true); }
+    }));
+  }
+
+  async function loadAll() {
+    const u = await CT.me(true);
+    if (!u) { location.href = '/login.html'; return; }
+    $('#prof-name').textContent = u.name;
+    $('#prof-role').textContent = u.role === 'ADMIN' ? 'Administrator' : `Verified Student`;
+    $('#prof-sid').textContent = u.studentId;
+    $('#prof-email').textContent = u.email;
+    $('#prof-dept').textContent = u.department;
+    $('#prof-year').textContent = u.year;
+    $('#prof-phone').textContent = u.phone;
+    $('#f-name').value = u.name;
+    $('#f-phone').value = u.phone;
+    $('#f-dept').value = u.department;
+    $('#f-year').value = u.year;
+    try {
+      const d = await CT.api('/api/my/listings');
+      renderListings(d.listings);
+    } catch (err) { CT.showToast(err.message, true); }
+  }
+
+  $('#profile-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    try {
+      await CT.api('/api/users/me', {
+        method: 'PUT',
+        body: { name: $('#f-name').value.trim(), phone: $('#f-phone').value.trim(), department: $('#f-dept').value.trim(), year: $('#f-year').value.trim() },
+      });
+      CT.showToast('Profile updated.');
+      CT.initAuth();
+      loadAll();
+    } catch (err) { CT.showToast(err.message, true); }
+  });
+
+  $('#logout-btn').addEventListener('click', async () => {
+    try { await CT.api('/api/auth/logout', { method: 'POST' }); } catch { /* ignore */ }
+    location.href = '/login.html';
+  });
+
+  (async () => {
+    const u = await CT.me(true);
+    if (!u) { CT.showToast('Please log in.', true); setTimeout(() => { location.href = '/login.html?next=/profile.html'; }, 700); return; }
+    try { await loadAll(); } catch (err) { CT.showToast(err.message, true); }
+  })();
+})();
+</script>
+</body>
+</html>

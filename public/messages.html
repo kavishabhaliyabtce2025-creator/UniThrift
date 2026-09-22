@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Messages · UniThrift</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}::-webkit-scrollbar{display:none;}}</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-[#121318] min-h-screen text-[#f8fafc]">
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#121318]/90 backdrop-blur-md border-b border-[#272a34]">
+  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
+    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2">
+      <img alt="UniThrift" class="w-9 h-9 rounded-lg shadow-[0_0_12px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
+      <div class="flex flex-col leading-none">
+        <span class="font-semibold tracking-tight text-[17px] text-[#f8fafc]">UniThrift</span>
+        <span class="text-[10px] text-[#3b82f6] font-semibold uppercase tracking-[0.14em]">Academic Exchange</span>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-1 text-sm">
+      <a data-path="marketplace" href="/index.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Marketplace</a>
+      <a data-path="post-an-item" href="/post.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Post an Item</a>
+      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">My Rentals &amp; Orders</a>
+      <a data-path="messages" href="/messages.html" class="px-3 py-1.5 text-[#3b82f6] hover:text-[#f8fafc] rounded-lg transition-colors font-medium">Messages</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a data-path="wishlist" href="/wishlist.html" class="relative p-1.5 text-[#94a3b8] hover:text-[#3b82f6] rounded-lg">
+        <span class="material-symbols-outlined text-[22px]">bookmark</span>
+        <span class="wishlist-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] text-white text-[9px] rounded-full items-center justify-center font-bold hidden">0</span>
+      </a>
+      <div class="flex items-center gap-2 pl-2">
+        <div class="hidden md:flex flex-col text-right leading-tight">
+          <span class="text-[13px] text-[#f8fafc]">Guest</span>
+          <span class="text-[11px] text-[#94a3b8]">Sign in to continue</span>
+        </div>
+        <img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-[#272a34]" src="/assets/avatar.png">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-24 pb-16 max-w-7xl mx-auto px-6">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Messages</h1>
+    <p class="text-sm text-[#94a3b8] mt-1">In-app negotiation with buyers, sellers and renters — every thread persisted in the messages table.</p>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 h-[64vh]">
+    <aside class="lg:col-span-4 bg-[#1a1b21] border border-[#272a34] rounded-xl overflow-hidden flex flex-col">
+      <div class="p-3 border-b border-[#272a34] bg-[#121318]">
+        <p class="text-[13px] font-semibold px-1">Conversations</p>
+      </div>
+      <div id="convo-list" class="flex-1 overflow-y-auto divide-y divide-[#272a34]/60"></div>
+    </aside>
+    <section class="lg:col-span-8 bg-[#1a1b21] border border-[#272a34] rounded-xl overflow-hidden flex flex-col">
+      <div class="p-4 border-b border-[#272a34] bg-[#121318] flex items-center justify-between gap-3" id="thread-header">
+        <div>
+          <p class="font-semibold text-[15px]" id="thread-name">Select a conversation</p>
+          <p class="text-[12px] text-[#94a3b8]" id="thread-sub">Choose a thread from the left to start chatting.</p>
+        </div>
+        <a id="thread-listing-link" class="hidden px-3 py-1.5 rounded-lg bg-[#2563eb]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-[12px] font-medium hover:bg-[#2563eb]/20 transition-colors" href="#">View listing →</a>
+      </div>
+      <div id="thread-body" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#0d0e13]/40"></div>
+      <form id="compose" class="p-3 border-t border-[#272a34] flex gap-2 bg-[#121318]">
+        <input id="msg-input" class="flex-1 bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2 text-sm text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6]" placeholder="Type a message…" autocomplete="off">
+        <button class="px-4 py-2 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[17px]">send</span> Send
+        </button>
+      </form>
+    </section>
+  </div>
+</main>
+
+<script src="/js/app.js"></script>
+<script>
+(() => {
+  const CT = window.CT;
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+  const state = { conversations: [], activeOther: null, activeListing: null, meId: null };
+
+  const fmtTime = (t) => { try { const d = new Date(t); if (isNaN(d)) return ''; return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }); } catch { return ''; } };
+
+  async function loadConversations() {
+    const d = await CT.api('/api/messages');
+    state.conversations = d.conversations || [];
+    const list = $('#convo-list');
+    if (!state.conversations.length) {
+      list.innerHTML = `<div class="p-6 text-center text-[#94a3b8] text-sm">No conversations yet.<br>Open a listing and hit "Message Seller".</div>`;
+      return;
+    }
+    list.innerHTML = state.conversations.map((c) => `
+      <button class="convo-btn w-full text-left px-4 py-3 hover:bg-[#121318] transition-colors ${state.activeOther === c.other_id ? 'bg-[#121318]' : ''}" data-other="${c.other_id}" data-listing="${c.listing_id || ''}">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-semibold text-[14px] truncate">${c.other_name}</span>
+          <span class="text-[11px] text-[#64748b] shrink-0">${fmtTime(c.last_at)}</span>
+        </div>
+        <p class="text-[12px] text-[#94a3b8] truncate mt-0.5">${c.listing_name ? '<span class="text-[#3b82f6]">' + c.listing_name + '</span> · ' : ''}${c.last_message}</p>
+      </button>`).join('');
+    $$('.convo-btn', list).forEach((btn) => btn.addEventListener('click', () => {
+      openThread(+btn.dataset.other, btn.dataset.listing ? +btn.dataset.listing : null);
+    }));
+  }
+
+  async function openThread(otherId, listingId) {
+    state.activeOther = otherId;
+    state.activeListing = listingId || null;
+    loadConversations(); // refresh highlight
+    const u = await CT.me();
+    state.meId = u.id;
+    const d = await CT.api('/api/messages?otherId=' + otherId);
+    const other = state.conversations.find((c) => c.other_id === otherId);
+    $('#thread-name').textContent = other ? other.other_name : 'Chat';
+    $('#thread-sub').textContent = other ? `${other.other_dept || ''} · ${d.messages.length} message${d.messages.length === 1 ? '' : 's'}` : '';
+    const link = $('#thread-listing-link');
+    if (state.activeListing) {
+      link.href = '/product.html?id=' + state.activeListing;
+      link.classList.remove('hidden');
+    } else {
+      link.classList.add('hidden');
+    }
+    const body = $('#thread-body');
+    body.innerHTML = d.messages.length
+      ? d.messages.map((m) => `
+        <div class="flex ${m.sender_id === state.meId ? 'justify-end' : 'justify-start'}">
+          <div class="max-w-[75%] ${m.sender_id === state.meId ? 'bg-[#2563eb] text-white rounded-2xl rounded-br-md' : 'bg-[#1e1f25] border border-[#272a34] text-[#f8fafc] rounded-2xl rounded-bl-md'} px-3.5 py-2 text-sm">
+            <p>${m.message}</p>
+            <p class="text-[10px] ${m.sender_id === state.meId ? 'text-white/60' : 'text-[#64748b]'} mt-1">${fmtTime(m.sent_at)}</p>
+          </div>
+        </div>`).join('')
+      : `<div class="h-full flex items-center justify-center text-[#94a3b8] text-sm">Say hello 👋</div>`;
+    body.scrollTop = body.scrollHeight;
+    $('#msg-input').focus();
+  }
+
+  $('#compose').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = $('#msg-input');
+    const text = input.value.trim();
+    if (!state.activeOther || !text) return;
+    try {
+      await CT.api('/api/messages', { body: { receiverId: state.activeOther, message: text, listingId: state.activeListing } });
+      input.value = '';
+      await openThread(state.activeOther, state.activeListing);
+      loadConversations();
+    } catch (err) { CT.showToast(err.message, true); }
+  });
+
+  (async () => {
+    const u = await CT.me(true);
+    if (!u) { CT.showToast('Please log in to view messages.', true); setTimeout(() => { location.href = '/login.html?next=/messages.html'; }, 800); return; }
+    state.meId = u.id;
+    const params = new URLSearchParams(location.search);
+    const other = params.get('otherId');
+    const listing = params.get('listingId');
+    try {
+      await loadConversations();
+      if (other) await openThread(+other, listing ? +listing : null);
+    } catch (err) { CT.showToast(err.message, true); }
+  })();
+})();
+</script>
+</body>
+</html>

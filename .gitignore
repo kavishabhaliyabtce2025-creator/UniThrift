@@ -1,0 +1,13 @@
+# dependencies (none currently — zero-npm-dep backend)
+node_modules/
+
+# runtime database — regenerate by deleting (see database/README.md)
+database/*.sqlite
+database/*.sqlite-shm
+database/*.sqlite-wal
+database/*.sqlite-journal
+
+# logs & OS cruft
+*.log
+.DS_Store
+Thumbs.db

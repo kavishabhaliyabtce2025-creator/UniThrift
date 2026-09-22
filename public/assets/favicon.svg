@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="UniThrift">
+  <!-- UniThrift favicon – same mark as /assets/logo.svg -->
+  <defs>
+    <linearGradient id="ut-bg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="11" fill="url(#ut-bg)"/>
+  <g transform="rotate(14 40 9)">
+    <rect x="34.5" y="2.5" width="10.5" height="13.5" rx="3" fill="#fbbf24"/>
+    <circle cx="39.75" cy="9.25" r="1.7" fill="#1d4ed8"/>
+  </g>
+  <path d="M9 17.4 L24 10.8 L39 17.4 L24 24 Z" fill="#ffffff"/>
+  <path d="M13.6 21 v6.3 c0 2.9 4.6 5 10.4 5 s10.4 -2.1 10.4 -5 V21 l-10.4 4.4 z" fill="#bfdbfe"/>
+  <path d="M36.8 21.4 v7.9" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

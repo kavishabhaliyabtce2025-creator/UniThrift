@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register · UniThrift</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}::-webkit-scrollbar{display:none;}}</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-[#121318] min-h-screen text-[#f8fafc]">
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#121318]/90 backdrop-blur-md border-b border-[#272a34]">
+  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
+    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2">
+      <img alt="UniThrift" class="w-9 h-9 rounded-lg shadow-[0_0_12px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
+      <div class="flex flex-col leading-none">
+        <span class="font-semibold tracking-tight text-[17px] text-[#f8fafc]">UniThrift</span>
+        <span class="text-[10px] text-[#3b82f6] font-semibold uppercase tracking-[0.14em]">Academic Exchange</span>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-1 text-sm">
+      <a data-path="marketplace" href="/index.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Marketplace</a>
+      <a data-path="post-an-item" href="/post.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Post an Item</a>
+      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">My Rentals &amp; Orders</a>
+      <a data-path="messages" href="/messages.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Messages</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a data-path="wishlist" href="/wishlist.html" class="relative p-1.5 text-[#94a3b8] hover:text-[#3b82f6] rounded-lg">
+        <span class="material-symbols-outlined text-[22px]">bookmark</span>
+        <span class="wishlist-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] text-white text-[9px] rounded-full items-center justify-center font-bold hidden">0</span>
+      </a>
+      <div class="flex items-center gap-2 pl-2">
+        <div class="hidden md:flex flex-col text-right leading-tight">
+          <span class="text-[13px] text-[#f8fafc]">Guest</span>
+          <span class="text-[11px] text-[#94a3b8]">Sign in to continue</span>
+        </div>
+        <img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-[#272a34]" src="/assets/avatar.png">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-28 pb-24">
+  <div class="max-w-lg mx-auto px-4">
+    <div class="bg-[#1a1b21] border border-[#272a34] rounded-2xl p-8 shadow-xl">
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 mx-auto rounded-xl bg-[#2563eb] flex items-center justify-center text-white shadow-[0_0_20px_rgba(37,99,235,0.4)]"><span class="material-symbols-outlined text-[26px]">badge</span></div>
+        <h1 class="text-xl font-bold mt-3">Create your student account</h1>
+        <p class="text-sm text-[#94a3b8] mt-1">Student-ID-verified access to buy, sell and rent on campus</p>
+      </div>
+      <form id="register-form" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-[#cbd5e1] mb-1.5" for="studentId">Student ID</label>
+            <input id="studentId" type="text" required placeholder="CSE2025001" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6]">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-[#cbd5e1] mb-1.5" for="name">Full Name</label>
+            <input id="name" type="text" required placeholder="Ananya R." class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6]">
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-[#cbd5e1] mb-1.5" for="email">Campus Email</label>
+            <input id="email" type="email" required placeholder="you@campus.edu" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6]">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-[#cbd5e1] mb-1.5" for="phone">Phone</label>
+            <input id="phone" type="tel" required placeholder="98XXXXXXXX" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6]">
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-[#cbd5e1] mb-1.5" for="department">Department</label>
+            <select id="department" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-[#f8fafc] focus:outline-none focus:border-[#3b82f6] cursor-pointer">
+              <option>CSE</option><option>ECE</option><option>EEE</option><option>MECH</option><option>CIVIL</option><option>MATH</option><option>BIOTECH</option><option>CHEM</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-[#cbd5e1] mb-1.5" for="year">Year</label>
+            <select id="year" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-[#f8fafc] focus:outline-none focus:border-[#3b82f6] cursor-pointer">
+              <option>1st</option><option>2nd</option><option selected>3rd</option><option>4th</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-[#cbd5e1] mb-1.5" for="password">Password</label>
+          <input id="password" type="password" required minlength="8" placeholder="At least 8 characters" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6]">
+        </div>
+        <p id="err" class="hidden text-sm text-rose-400"></p>
+        <button type="submit" class="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-white font-semibold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">how_to_reg</span> Register &amp; start trading
+        </button>
+      </form>
+      <p class="text-sm text-[#94a3b8] text-center mt-4">Already registered? <a href="/login.html" class="text-[#3b82f6] hover:underline">Sign in</a></p>
+    </div>
+  </div>
+</main>
+
+<script src="/js/app.js"></script>
+<script>
+(() => {
+  const CT = window.CT;
+  const form = document.getElementById('register-form');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errEl = document.getElementById('err');
+    errEl.classList.add('hidden');
+    try {
+      await CT.api('/api/auth/register', {
+        body: {
+          studentId: form.studentId.value.trim(), name: form.name.value.trim(),
+          email: form.email.value.trim(), phone: form.phone.value.trim(),
+          department: form.department.value, year: form.year.value, password: form.password.value,
+        },
+      });
+      CT.showToast('Account created — welcome to UniThrift!');
+      setTimeout(() => { location.href = '/index.html'; }, 400);
+    } catch (err) {
+      errEl.textContent = err.message;
+      errEl.classList.remove('hidden');
+    }
+  });
+})();
+</script>
+</body>
+</html>

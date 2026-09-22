@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wishlist · UniThrift</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}::-webkit-scrollbar{display:none;}}</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-[#121318] min-h-screen text-[#f8fafc]">
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#121318]/90 backdrop-blur-md border-b border-[#272a34]">
+  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
+    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2">
+      <img alt="UniThrift" class="w-9 h-9 rounded-lg shadow-[0_0_12px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
+      <div class="flex flex-col leading-none">
+        <span class="font-semibold tracking-tight text-[17px] text-[#f8fafc]">UniThrift</span>
+        <span class="text-[10px] text-[#3b82f6] font-semibold uppercase tracking-[0.14em]">Academic Exchange</span>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-1 text-sm">
+      <a data-path="marketplace" href="/index.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Marketplace</a>
+      <a data-path="post-an-item" href="/post.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Post an Item</a>
+      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">My Rentals &amp; Orders</a>
+      <a data-path="messages" href="/messages.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Messages</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a data-path="wishlist" href="/wishlist.html" class="relative p-1.5 text-[#3b82f6] rounded-lg">
+        <span class="material-symbols-outlined text-[22px]">bookmark</span>
+        <span class="wishlist-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] text-white text-[9px] rounded-full items-center justify-center font-bold hidden">0</span>
+      </a>
+      <div class="flex items-center gap-2 pl-2">
+        <div class="hidden md:flex flex-col text-right leading-tight">
+          <span class="text-[13px] text-[#f8fafc]">Guest</span>
+          <span class="text-[11px] text-[#94a3b8]">Sign in to continue</span>
+        </div>
+        <img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-[#272a34]" src="/assets/avatar.png">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-24 pb-20 max-w-7xl mx-auto px-6">
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold tracking-tight">My Wishlist</h1>
+    <p class="text-sm text-[#94a3b8] mt-1">Items you've bookmarked. Tap the bookmark again to remove one.</p>
+  </div>
+  <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+</main>
+
+<script src="/js/app.js"></script>
+<script>
+(() => {
+  const CT = window.CT;
+
+  async function load() {
+    const d = await CT.api('/api/my/wishlist');
+    const g = document.getElementById('grid');
+    if (!d.wishlist.length) {
+      g.innerHTML = `<div class="col-span-full bg-[#1a1b21] border border-[#272a34] rounded-xl p-12 text-center">
+        <span class="material-symbols-outlined text-[40px] text-[#64748b]">bookmark_border</span>
+        <p class="text-[#f8fafc] font-title-md text-lg mt-2">Your wishlist is empty</p>
+        <p class="text-[#94a3b8] text-sm mt-1">Browse the marketplace and save items you want to buy or rent.</p>
+        <a href="/index.html" class="inline-block mt-4 px-4 py-2 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-lg text-sm transition-colors">Explore marketplace</a>
+      </div>`;
+      return;
+    }
+    g.innerHTML = d.wishlist.map((l) => CT.cardHTML(l)).join('');
+  }
+
+  document.getElementById('grid').addEventListener('click', async (e) => {
+    const wish = e.target.closest('[data-wish]');
+    if (wish) {
+      e.preventDefault();
+      e.stopPropagation();
+      await CT.toggleWish(+wish.dataset.wish);
+      try { await load(); } catch { /* ignore */ }
+      return;
+    }
+    const card = e.target.closest('[data-goto]');
+    if (card) { e.preventDefault(); location.href = card.dataset.goto; }
+  });
+
+  (async () => {
+    const u = await CT.me(true);
+    if (!u) { CT.showToast('Please log in to view your wishlist.', true); setTimeout(() => { location.href = '/login.html?next=/wishlist.html'; }, 800); return; }
+    try { await load(); } catch (err) { CT.showToast(err.message, true); }
+  })();
+})();
+</script>
+</body>
+</html>
