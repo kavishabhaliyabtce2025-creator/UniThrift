@@ -24,18 +24,64 @@ const readBody = (req) =>
   new Promise((resolve, reject) => {
     let size = 0;
     const chunks = [];
+    let destroyed = false;
     req.on('data', (c) => {
+      if (destroyed) return;
       size += c.length;
-      if (size > 2 * 1024 * 1024) { reject(new Error('Payload too large')); req.destroy(); return; }
+      if (size > 2 * 1024 * 1024) {
+        destroyed = true;
+        const err = new Error('Payload too large (maximum 2MB)');
+        err.statusCode = 413;
+        reject(err);
+        return;
+      }
       chunks.push(c);
     });
     req.on('end', () => {
+      if (destroyed) return;
       if (!chunks.length) return resolve({});
       try { resolve(JSON.parse(Buffer.concat(chunks).toString('utf8'))); }
-      catch { reject(new Error('Invalid JSON body')); }
+      catch {
+        const err = new Error('Invalid JSON body');
+        err.statusCode = 400;
+        reject(err);
+      }
     });
     req.on('error', reject);
   });
+
+const withTx = (fn) => {
+  db.exec('BEGIN IMMEDIATE TRANSACTION');
+  try {
+    const res = fn();
+    db.exec('COMMIT');
+    return res;
+  } catch (err) {
+    try { db.exec('ROLLBACK'); } catch { /* ignore */ }
+    throw err;
+  }
+};
+
+const rateLimitMap = new Map();
+const isRateLimited = (ip, action, limit = 10, windowMs = 60000) => {
+  const key = `${ip}:${action}`;
+  const now = Date.now();
+  const entry = rateLimitMap.get(key) || { count: 0, resetAt: now + windowMs };
+  if (now > entry.resetAt) {
+    entry.count = 1;
+    entry.resetAt = now + windowMs;
+    rateLimitMap.set(key, entry);
+    return false;
+  }
+  entry.count += 1;
+  rateLimitMap.set(key, entry);
+  if (rateLimitMap.size > 2000) {
+    for (const [k, v] of rateLimitMap.entries()) {
+      if (now > v.resetAt) rateLimitMap.delete(k);
+    }
+  }
+  return entry.count > limit;
+};
 
 const currentUser = (req) => {
   const token = auth.parseCookies(req)[auth.COOKIE];
@@ -141,16 +187,16 @@ const loadListing = (id) => {
 const withImages = (rows) =>
   rows.map((r) => { const v = listingView(r); v.images = listingImages(r.listing_id); return v; });
 
-// ---------------- server ---------------------------------------------------
-let URL_PARAMS = null;
-const q = (name, def = null) => { const v = URL_PARAMS.get(name); return v === null || v === '' ? def : v; };
-
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-  URL_PARAMS = url.searchParams;
+  const q = (name, def = null) => {
+    const v = url.searchParams.get(name);
+    return v === null || v === '' ? def : v;
+  };
   const method = req.method.toUpperCase();
   const p = url.pathname;
   const isApi = p.startsWith('/api/');
+  const clientIp = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress || '127.0.0.1';
 
   try {
     const user = currentUser(req);
@@ -166,28 +212,38 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (isApi && p === '/api/auth/register' && method === 'POST') {
+      if (isRateLimited(clientIp, 'register', 5, 60000)) {
+        return json(res, 429, { error: 'Too many registration requests. Please wait a minute.' });
+      }
       const b = await readBody(req);
       const { studentId, name, email, phone, department, year, password } = b;
       if (!studentId || !name || !email || !phone || !department || !year || !password) {
         return json(res, 400, { error: 'All fields are required (studentId, name, email, phone, department, year, password).' });
       }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
+      if (String(studentId).length > 50 || String(name).length > 100 || String(email).length > 150 || String(phone).length > 30) {
+        return json(res, 400, { error: 'Field length exceeds maximum limit.' });
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim()))
         return json(res, 400, { error: 'Please enter a valid college email.' });
       if (String(password).length < 8) return json(res, 400, { error: 'Password must be at least 8 characters.' });
-      const dup = db.prepare("SELECT 1 FROM users WHERE student_id = ? OR email = ? COLLATE NOCASE").get(studentId.trim(), email.trim());
+      if (String(password).length > 128) return json(res, 400, { error: 'Password cannot exceed 128 characters.' });
+      const dup = db.prepare("SELECT 1 FROM users WHERE student_id = ? OR email = ? COLLATE NOCASE").get(String(studentId).trim(), String(email).trim());
       if (dup) return json(res, 409, { error: 'Student ID or email is already registered.' });
       const info = db.prepare(
         'INSERT INTO users (student_id, name, email, phone, department, year, password_hash, role) VALUES (?,?,?,?,?,?,?,?)'
-      ).run(studentId.trim(), name.trim(), email.trim(), phone.trim(), department.trim(), year.trim(), auth.hashPassword(password), 'STUDENT');
+      ).run(String(studentId).trim(), String(name).trim(), String(email).trim(), String(phone).trim(), String(department).trim(), String(year).trim(), auth.hashPassword(password), 'STUDENT');
       res.setHeader('Set-Cookie', auth.cookieHeader(auth.signToken(info.lastInsertRowid)));
       return json(res, 201, { user: publicUser(db.prepare('SELECT * FROM users WHERE user_id = ?').get(info.lastInsertRowid)) });
     }
 
     if (isApi && p === '/api/auth/login' && method === 'POST') {
+      if (isRateLimited(clientIp, 'login', 10, 60000)) {
+        return json(res, 429, { error: 'Too many login attempts. Please wait a minute.' });
+      }
       const b = await readBody(req);
       const { email, password } = b;
       if (!email || !password) return json(res, 400, { error: 'Email and password are required.' });
-      const u = db.prepare('SELECT * FROM users WHERE email = ? COLLATE NOCASE').get(email.trim());
+      const u = db.prepare('SELECT * FROM users WHERE email = ? COLLATE NOCASE').get(String(email).trim());
       if (!u || !auth.verifyPassword(password, u.password_hash))
         return json(res, 401, { error: 'Invalid email or password.' });
       if (u.status === 'BLOCKED') return json(res, 403, { error: 'Your account has been blocked by the administrator.' });
@@ -200,11 +256,15 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { ok: true });
     }
 
-    if (isApi && p === '/api/users/me' && method === 'PUT') {
+    if (isApi && (p === '/api/users/me' || p === '/api/auth/me') && method === 'PUT') {
       if (!needAuth(user, res)) return;
       const b = await readBody(req);
+      const newName = sup(b.name) ? String(b.name).trim().slice(0, 100) : user.name;
+      const newPhone = sup(b.phone) ? String(b.phone).trim().slice(0, 30) : user.phone;
+      const newYear = sup(b.year) ? String(b.year).trim().slice(0, 20) : user.year;
+      const newDept = sup(b.department) ? String(b.department).trim().slice(0, 50) : user.department;
       db.prepare('UPDATE users SET name=?, phone=?, year=?, department=? WHERE user_id=?')
-        .run(sup(b.name) || user.name, sup(b.phone) || user.phone, sup(b.year) || user.year, sup(b.department) || user.department, user.user_id);
+        .run(newName, newPhone, newYear, newDept, user.user_id);
       return json(res, 200, { user: publicUser(db.prepare('SELECT * FROM users WHERE user_id=?').get(user.user_id)) });
     }
 
@@ -274,30 +334,36 @@ const server = http.createServer(async (req, res) => {
       const { name, category, description, brand, author, edition, condition, type, salePrice, rentPrice, deposit, location } = b;
       if (!name || !category || !description || !condition || !location)
         return json(res, 400, { error: 'name, category, description, condition and location are required.' });
+      if (String(name).length > 200 || String(description).length > 3000 || String(location).length > 200)
+        return json(res, 400, { error: 'Input field exceeds maximum allowed length.' });
       const ltype = ['SALE', 'RENT', 'BOTH'].includes(type) ? type : 'SALE';
-      let cat = db.prepare("SELECT * FROM categories WHERE category_name = ? COLLATE NOCASE").get(String(category).trim());
+      const cat = db.prepare("SELECT * FROM categories WHERE category_name = ? COLLATE NOCASE").get(String(category).trim());
       if (!cat) {
-        const info = db.prepare('INSERT INTO categories (category_name, description) VALUES (?,?)')
-          .run(String(category).trim(), 'Auto-created from listing');
-        cat = db.prepare('SELECT * FROM categories WHERE category_id=?').get(info.lastInsertRowid);
+        return json(res, 400, { error: `Category '${category}' not found. Please select an approved campus category.` });
       }
       const sale = num(salePrice), rent = num(rentPrice), dep = num(deposit);
       if (sale !== null && sale < 0) return json(res, 400, { error: 'Sale price cannot be negative.' });
       if (rent !== null && rent < 0) return json(res, 400, { error: 'Rental price cannot be negative.' });
-      const pInfo = db.prepare('INSERT INTO products (category_id, product_name, description, brand, author, edition, condition) VALUES (?,?,?,?,?,?,?)')
-        .run(cat.category_id, String(name).trim(), String(description).trim(), sup(brand), sup(author), sup(edition), String(condition).trim());
-      const lInfo = db.prepare(`INSERT INTO listings (product_id, seller_id, listing_type, sale_price, rent_price, deposit, location, status)
-          VALUES (?,?,?,?,?,?,?,'PENDING')`)
-        .run(pInfo.lastInsertRowid, user.user_id, ltype, sale, rent, dep ?? 0, String(location).trim());
-      if (Array.isArray(b.images)) {
-        b.images.filter(Boolean).slice(0, 4).forEach((u, i) =>
-          db.prepare('INSERT INTO product_images (listing_id, image_url, sort_order) VALUES (?,?,?)').run(lInfo.lastInsertRowid, String(u), i));
-      }
-      if (!b.images || !b.images.length) {
-        db.prepare('INSERT INTO product_images (listing_id, image_url, sort_order) VALUES (?,?,?)')
-          .run(lInfo.lastInsertRowid, `https://picsum.photos/seed/ct-${lInfo.lastInsertRowid}/600/450`, 0);
-      }
-      return json(res, 201, { listing: loadListing(lInfo.lastInsertRowid), message: 'Listing submitted for admin approval.' });
+      if (dep !== null && dep < 0) return json(res, 400, { error: 'Deposit cannot be negative.' });
+
+      const lid = withTx(() => {
+        const pInfo = db.prepare('INSERT INTO products (category_id, product_name, description, brand, author, edition, condition) VALUES (?,?,?,?,?,?,?)')
+          .run(cat.category_id, String(name).trim().slice(0, 200), String(description).trim().slice(0, 3000), sup(brand), sup(author), sup(edition), String(condition).trim().slice(0, 50));
+        const lInfo = db.prepare(`INSERT INTO listings (product_id, seller_id, listing_type, sale_price, rent_price, deposit, location, status)
+            VALUES (?,?,?,?,?,?,?,'PENDING')`)
+          .run(pInfo.lastInsertRowid, user.user_id, ltype, sale, rent, dep ?? 0, String(location).trim().slice(0, 200));
+        const newLid = lInfo.lastInsertRowid;
+        if (Array.isArray(b.images) && b.images.length) {
+          b.images.filter(Boolean).slice(0, 4).forEach((u, i) =>
+            db.prepare('INSERT INTO product_images (listing_id, image_url, sort_order) VALUES (?,?,?)').run(newLid, String(u).slice(0, 1000), i));
+        } else {
+          db.prepare('INSERT INTO product_images (listing_id, image_url, sort_order) VALUES (?,?,?)')
+            .run(newLid, `https://picsum.photos/seed/ct-${newLid}/600/450`, 0);
+        }
+        return newLid;
+      });
+
+      return json(res, 201, { listing: loadListing(lid), message: 'Listing submitted for admin approval.' });
     }
 
     if (isApi && /^\/api\/listings\/\d+\/?$/.test(p) && method === 'DELETE') {
@@ -307,8 +373,10 @@ const server = http.createServer(async (req, res) => {
       if (!row) return json(res, 404, { error: 'Listing not found.' });
       if (row.seller_id !== user.user_id) return json(res, 403, { error: 'Only the seller can remove this listing.' });
       if (['SOLD', 'REMOVED', 'REJECTED'].includes(row.status)) return json(res, 409, { error: `Listing is already ${row.status.toLowerCase()} and cannot be removed.` });
-      db.prepare('UPDATE listings SET status = ? WHERE listing_id = ?').run('REMOVED', id);
-      db.prepare("UPDATE orders SET status='CANCELLED' WHERE listing_id=? AND status='PENDING'").run(id);
+      withTx(() => {
+        db.prepare('UPDATE listings SET status = ? WHERE listing_id = ?').run('REMOVED', id);
+        db.prepare("UPDATE orders SET status='CANCELLED' WHERE listing_id=? AND status='PENDING'").run(id);
+      });
       return json(res, 200, { message: 'Listing removed.' });
     }
 
@@ -387,9 +455,12 @@ const server = http.createServer(async (req, res) => {
       if (row.status !== 'AVAILABLE') return json(res, 409, { error: `This item is not available (${row.status}).` });
       const amount = num(row.sale_price) ?? 0;
       const methodPay = ['Cash on Campus', 'Campus UPI', 'Online'].includes(b.paymentMethod) ? b.paymentMethod : 'Cash on Campus';
-      const oInfo = db.prepare("INSERT INTO orders (buyer_id, listing_id, amount, status) VALUES (?,?,?,'PENDING')").run(user.user_id, lid, amount);
-      db.prepare("INSERT INTO payments (order_id, amount, payment_method, payment_status) VALUES (?,?,?,'PENDING')").run(oInfo.lastInsertRowid, amount, methodPay);
-      return json(res, 201, { orderId: oInfo.lastInsertRowid, message: 'Purchase request sent to the seller.' });
+      const oId = withTx(() => {
+        const oInfo = db.prepare("INSERT INTO orders (buyer_id, listing_id, amount, status) VALUES (?,?,?,'PENDING')").run(user.user_id, lid, amount);
+        db.prepare("INSERT INTO payments (order_id, amount, payment_method, payment_status) VALUES (?,?,?,'PENDING')").run(oInfo.lastInsertRowid, amount, methodPay);
+        return oInfo.lastInsertRowid;
+      });
+      return json(res, 201, { orderId: oId, message: 'Purchase request sent to the seller.' });
     }
 
     if (isApi && /^\/api\/orders\/\d+\/?$/.test(p) && method === 'PUT') {
@@ -405,10 +476,12 @@ const server = http.createServer(async (req, res) => {
       if (['accept', 'reject', 'complete'].includes(act) && !isSeller) return json(res, 403, { error: 'Only the seller can take this action.' });
       if (act === 'cancel' && !isBuyer && !isSeller) return json(res, 403, { error: 'Only the buyer or seller can cancel.' });
       const updOrder = (status, lstatus = null, pay = null) => {
-        db.prepare('UPDATE orders SET status = ? WHERE order_id = ?').run(status, id);
-        if (lstatus) db.prepare('UPDATE listings SET status = ? WHERE listing_id = ?').run(lstatus, o.listing_id);
-        if (pay === 'complete') db.prepare("UPDATE payments SET payment_status='COMPLETED', payment_date=datetime('now') WHERE order_id=?").run(id);
-        if (pay === 'refund') db.prepare("UPDATE payments SET payment_status='REFUNDED' WHERE order_id=?").run(id);
+        withTx(() => {
+          db.prepare('UPDATE orders SET status = ? WHERE order_id = ?').run(status, id);
+          if (lstatus) db.prepare('UPDATE listings SET status = ? WHERE listing_id = ?').run(lstatus, o.listing_id);
+          if (pay === 'complete') db.prepare("UPDATE payments SET payment_status='COMPLETED', payment_date=datetime('now') WHERE order_id=?").run(id);
+          if (pay === 'refund') db.prepare("UPDATE payments SET payment_status='REFUNDED' WHERE order_id=?").run(id);
+        });
       };
       if (act === 'accept') {
         if (o.status !== 'PENDING') return json(res, 409, { error: `Order is already ${o.status}.` });
@@ -433,6 +506,8 @@ const server = http.createServer(async (req, res) => {
       const b = await readBody(req);
       const lid = num(b.listingId), start = sup(b.startDate), end = sup(b.returnDate);
       if (!lid || !start || !end) return json(res, 400, { error: 'listingId, startDate and returnDate are required.' });
+      const today = new Date().toISOString().slice(0, 10);
+      if (start < today) return json(res, 400, { error: 'Start date cannot be in the past.' });
       if (start >= end) return json(res, 400, { error: 'Return date must be after the start date.' });
       const row = db.prepare(`${listingFull} WHERE l.listing_id = ?`).get(lid);
       if (!row) return json(res, 404, { error: 'Listing not found.' });
@@ -444,6 +519,7 @@ const server = http.createServer(async (req, res) => {
           AND start_date < ? AND return_date > ?`).all(lid, end, start);
       if (clash.length) return json(res, 409, { error: 'This date range overlaps an existing rental. Please pick different dates.' });
       const days = Math.max(1, Math.round((new Date(end) - new Date(start)) / 86400000));
+      if (days > 180) return json(res, 400, { error: 'Rental duration cannot exceed 180 days (one semester).' });
       const total = Number((days * row.rent_price + (row.deposit || 0)).toFixed(2));
       const info = db.prepare(`INSERT INTO rentals (listing_id, renter_id, start_date, return_date, price_per_day, deposit, total_amount, status)
           VALUES (?,?,?,?,?,?,?,'PENDING')`).run(lid, user.user_id, start, end, row.rent_price, row.deposit || 0, total);
@@ -540,7 +616,7 @@ const server = http.createServer(async (req, res) => {
       const b = await readBody(req);
       const oid = num(b.orderId), rating = num(b.rating);
       if (!oid) return json(res, 400, { error: 'orderId is required.' });
-      if (!rating || rating < 1 || rating > 5) return json(res, 400, { error: 'Rating must be between 1 and 5.' });
+      if (!Number.isInteger(rating) || rating < 1 || rating > 5) return json(res, 400, { error: 'Rating must be an integer between 1 and 5.' });
       const o = db.prepare('SELECT * FROM orders WHERE order_id = ?').get(oid);
       if (!o) return json(res, 404, { error: 'Order not found.' });
       if (o.buyer_id !== user.user_id) return json(res, 403, { error: 'Only the buyer can review this order.' });
@@ -761,7 +837,9 @@ const server = http.createServer(async (req, res) => {
     return res.end(content);
   } catch (err) {
     console.error('ERROR:', err);
-    return json(res, 500, { error: 'Internal server error', detail: String(err && err.message || err) });
+    const status = (err && err.statusCode) || 500;
+    const msg = status < 500 ? (err.message || 'Client error') : 'Internal server error';
+    return json(res, status, { error: msg });
   }
 });
 
