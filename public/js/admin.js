@@ -38,14 +38,6 @@
         else if (label === 'Term Turnover') { if (valueEl) valueEl.textContent = CT.money(s.salesVolume); if (footSpan) footSpan.textContent = `${s.completedSales} sales completed`; }
       });
     }
-    // DBMS drawer mini-cards
-    $$('div.bg-surface-container').forEach((card) => {
-      const labelEl = $('span', $(':scope > div', card));
-      const label = labelEl ? labelEl.textContent.trim() : '';
-      const valueEl = $('.font-headline-sm', card);
-      if (label === 'Hold Triggers' && valueEl) valueEl.textContent = `${s.pendingRentals} Pending Holds`;
-      if (label === 'Dispute Log Vault' && valueEl) valueEl.textContent = `${s.openReports} Open Reports`;
-    });
     // queue badge
     const badge = $$('span').find((x) => /Submissions/.test(x.textContent) && x.textContent.trim().endsWith('Submissions'));
     if (badge) badge.textContent = `${s.pendingListings} Submissions`;
@@ -57,50 +49,50 @@
     if (!tbody) return;
     const rows = st.pending;
     if (!rows.length) {
-      tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-on-surface-variant font-body-md">No submissions pending approval — everything is moderated. 🎉</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-slate-400 font-semibold">No submissions pending approval — everything is moderated. 🎉</td></tr>`;
       return;
     }
     tbody.innerHTML = rows.map((l) => `
-    <tr class="hover:bg-surface-container/60 transition-colors group" data-id="${l.id}">
+    <tr class="hover:bg-slate-50/80 transition-colors group" data-id="${l.id}">
       <td class="py-3.5 px-4">
         <div class="flex items-center gap-3">
-          <img class="w-12 h-14 object-cover rounded shadow flex-shrink-0 ring-1 ring-outline-variant/40" src="${imgOf(l)}" alt="">
+          <img class="w-12 h-14 object-cover rounded-xl shadow-2xs flex-shrink-0 border-2 border-slate-200" src="${imgOf(l)}" alt="">
           <div class="min-w-0">
-            <span class="font-label-lg text-white font-semibold block truncate">${esc(l.product.name)}</span>
+            <span class="font-bold text-slate-900 block truncate text-xs">${esc(l.product.name)}</span>
             <div class="flex items-center gap-1.5 mt-1">
-              <span class="px-1.5 py-0.5 bg-surface-container-high border border-outline-variant/40 text-primary font-label-sm text-[11px] rounded">${esc(l.category || '')}</span>
-              <span class="font-body-sm text-[12px] text-on-surface-variant truncate">${esc(l.product.author || l.product.condition || '')}</span>
+              <span class="px-2 py-0.5 bg-indigo-50 border border-indigo-200 text-indigo-700 text-[10px] font-bold rounded-md">${esc(l.category || '')}</span>
+              <span class="text-[11px] text-slate-500 truncate">${esc(l.product.author || l.product.condition || '')}</span>
             </div>
           </div>
         </div>
       </td>
       <td class="py-3.5 px-4">
         <div>
-          <p class="font-label-lg text-white font-medium">${esc(l.seller.name)}</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">${esc(l.seller.department || '')} · ${esc(l.seller.year || '')}</p>
+          <p class="font-bold text-slate-900 text-xs">${esc(l.seller.name)}</p>
+          <p class="text-[11px] text-slate-500">${esc(l.seller.department || '')} · ${esc(l.seller.year || '')}</p>
         </div>
       </td>
       <td class="py-3.5 px-4">
         <div class="flex flex-col">
-          <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-label-sm text-[10px] uppercase font-bold w-max mb-1">${typeLabel(l.type)}</span>
-          <span class="font-headline-sm text-headline-sm text-white font-bold">${priceOf(l)}</span>
-          <span class="font-body-sm text-body-sm text-on-surface-variant">Condition: ${esc(l.product.condition)}</span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-[10px] font-bold uppercase w-max mb-1">${typeLabel(l.type)}</span>
+          <span class="font-extrabold text-slate-900 text-xs">${priceOf(l)}</span>
+          <span class="text-[11px] text-slate-500">Condition: ${esc(l.product.condition)}</span>
         </div>
       </td>
       <td class="py-3.5 px-4">
         <div class="flex items-center gap-1.5">
-          <span class="material-symbols-outlined text-primary text-[18px]">meeting_room</span>
-          <span class="font-body-sm text-body-sm text-on-surface">${esc(l.location)}</span>
+          <span class="material-symbols-outlined text-indigo-600 text-[16px]">location_on</span>
+          <span class="text-xs font-medium text-slate-700">${esc(l.location)}</span>
         </div>
       </td>
-      <td class="py-3.5 px-4"><span class="font-body-sm text-body-sm text-on-surface">${esc((l.createdAt || '').slice(0, 16).replace('T', ' '))}</span></td>
+      <td class="py-3.5 px-4"><span class="text-xs text-slate-500">${esc((l.createdAt || '').slice(0, 16).replace('T', ' '))}</span></td>
       <td class="py-3.5 px-4 text-right">
         <div class="flex items-center justify-end gap-1.5">
-          <button class="px-2.5 py-1 rounded bg-emerald-600/90 text-white hover:bg-emerald-500 font-label-md text-label-md transition-all flex items-center gap-1 shadow-sm" onclick="approveRow(this)">
-            <span class="material-symbols-outlined text-[16px]">check</span> Approve
+          <button class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 text-xs font-bold transition-all flex items-center gap-1 shadow-xs border border-emerald-700" onclick="approveRow(this)">
+            <span class="material-symbols-outlined text-[15px]">check</span> Approve
           </button>
-          <button class="px-2.5 py-1 rounded bg-rose-600/20 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white font-label-md text-label-md transition-all flex items-center gap-1" onclick="openRejectModal(this)">
-            <span class="material-symbols-outlined text-[16px]">close</span> Reject
+          <button class="px-3 py-1.5 rounded-xl bg-rose-50 border-2 border-rose-200 text-rose-700 hover:bg-rose-100 text-xs font-bold transition-all flex items-center gap-1" onclick="openRejectModal(this)">
+            <span class="material-symbols-outlined text-[15px]">close</span> Reject
           </button>
         </div>
       </td>
@@ -115,95 +107,95 @@
     if (!box) {
       box = document.createElement('div');
       box.id = 'ct-admin-extra';
-      box.className = 'max-w-7xl mx-auto px-4 w-full pb-12';
+      box.className = 'max-w-7xl mx-auto w-full pb-12';
       main.appendChild(box);
     }
 
     const users = st.users.map((u) => `
-      <tr class="border-t border-outline-variant/20">
-        <td class="py-2.5 px-3 font-medium text-on-surface">${esc(u.name)}</td>
-        <td class="py-2.5 px-3 text-on-surface-variant text-[13px]">${esc(u.email)}</td>
-        <td class="py-2.5 px-3 text-on-surface-variant text-[13px]">${esc(u.studentId)}</td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">${esc(u.department)} · ${esc(u.year)}</td>
-        <td class="py-2.5 px-3 text-[13px]">${CT.statusChip(u.status)}</td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant text-center">${u.listings}</td>
-        <td class="py-2.5 px-3 text-[13px] text-center">${u.role === 'ADMIN' ? '<span class="text-primary text-[11px] font-bold uppercase">Admin</span>' : (u.status === 'ACTIVE'
-          ? `<button class="px-2 py-1 rounded bg-rose-600/20 border border-rose-500/30 text-rose-300 hover:bg-rose-600 hover:text-white text-[12px]" data-act="user-block" data-id="${u.id}">Block</button>`
-          : `<button class="px-2 py-1 rounded bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600 hover:text-white text-[12px]" data-act="user-block" data-id="${u.id}">Activate</button>`)}</td>
+      <tr class="border-t-2 border-slate-100 hover:bg-slate-50/80 transition-colors">
+        <td class="py-3 px-3.5 font-bold text-slate-900">${esc(u.name)}</td>
+        <td class="py-3 px-3.5 text-slate-600 text-[12px]">${esc(u.email)}</td>
+        <td class="py-3 px-3.5 text-slate-600 text-[12px] font-mono">${esc(u.studentId)}</td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-700">${esc(u.department)} · ${esc(u.year)}</td>
+        <td class="py-3 px-3.5 text-[12px]">${CT.statusChip(u.status)}</td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-600 text-center font-bold">${u.listings}</td>
+        <td class="py-3 px-3.5 text-[12px] text-center">${u.role === 'ADMIN' ? '<span class="text-indigo-700 bg-indigo-50 border border-indigo-300 px-2.5 py-0.5 rounded-md font-bold uppercase text-[10px]">Admin</span>' : (u.status === 'ACTIVE'
+          ? `<button class="px-2.5 py-1 rounded-lg bg-rose-50 border border-rose-300 text-rose-700 hover:bg-rose-100 text-[11px] font-bold" data-act="user-block" data-id="${u.id}">Block</button>`
+          : `<button class="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-800 hover:bg-emerald-100 text-[11px] font-bold" data-act="user-block" data-id="${u.id}">Activate</button>`)}</td>
       </tr>`).join('');
 
     const orders = st.orders.map((o) => `
-      <tr class="border-t border-outline-variant/20">
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">#${o.id}</td>
-        <td class="py-2.5 px-3 font-medium text-on-surface">${esc(o.listing.product.name)}</td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">${esc(o.buyer.name)} <span class="text-outline">(${esc(o.buyer.dept)})</span></td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">${esc(o.listing.seller.name)}</td>
-        <td class="py-2.5 px-3 font-semibold text-on-surface">${CT.money(o.amount)}</td>
-        <td class="py-2.5 px-3">${CT.statusChip(o.status)}</td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">${esc(o.paymentStatus || '')} · ${esc(o.paymentMethod || '')}</td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">${esc((o.date || '').slice(0, 10))}</td>
+      <tr class="border-t-2 border-slate-100 hover:bg-slate-50/80 transition-colors">
+        <td class="py-3 px-3.5 text-[12px] text-slate-500 font-mono font-bold">#${o.id}</td>
+        <td class="py-3 px-3.5 font-bold text-slate-900">${esc(o.listing.product.name)}</td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-700">${esc(o.buyer.name)} <span class="text-slate-400">(${esc(o.buyer.dept)})</span></td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-700">${esc(o.listing.seller.name)}</td>
+        <td class="py-3 px-3.5 font-extrabold text-slate-900">${CT.money(o.amount)}</td>
+        <td class="py-3 px-3.5">${CT.statusChip(o.status)}</td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-600">${esc(o.paymentStatus || '')} · ${esc(o.paymentMethod || '')}</td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-500">${esc((o.date || '').slice(0, 10))}</td>
       </tr>`).join('');
 
     const rentals = st.rentals.map((r) => `
-      <tr class="border-t border-outline-variant/20">
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">#${r.id}</td>
-        <td class="py-2.5 px-3 font-medium text-on-surface">${esc(r.listing.product.name)}</td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">${esc(r.renter.name)} <span class="text-outline">(${esc(r.renter.dept)})</span></td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">${esc(r.startDate)} → ${esc(r.returnDate)}</td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">${CT.money(r.pricePerDay)}/day · dep ${CT.money(r.deposit)}</td>
-        <td class="py-2.5 px-3 font-semibold text-on-surface">${CT.money(r.totalAmount)}</td>
-        <td class="py-2.5 px-3">${CT.statusChip(r.status)}</td>
+      <tr class="border-t-2 border-slate-100 hover:bg-slate-50/80 transition-colors">
+        <td class="py-3 px-3.5 text-[12px] text-slate-500 font-mono font-bold">#${r.id}</td>
+        <td class="py-3 px-3.5 font-bold text-slate-900">${esc(r.listing.product.name)}</td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-700">${esc(r.renter.name)} <span class="text-slate-400">(${esc(r.renter.dept)})</span></td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-600">${esc(r.startDate)} → ${esc(r.returnDate)}</td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-700">${CT.money(r.pricePerDay)}/day · dep ${CT.money(r.deposit)}</td>
+        <td class="py-3 px-3.5 font-extrabold text-slate-900">${CT.money(r.totalAmount)}</td>
+        <td class="py-3 px-3.5">${CT.statusChip(r.status)}</td>
       </tr>`).join('');
 
     const reports = st.reports.map((r) => `
-      <tr class="border-t border-outline-variant/20">
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">#${r.report_id}</td>
-        <td class="py-2.5 px-3 font-medium text-on-surface">${esc(r.listing_name)} <span class="text-outline text-[11px]">by ${esc(r.seller_name)}</span></td>
-        <td class="py-2.5 px-3 text-[13px] text-on-surface-variant">${esc(r.reporter)}</td>
-        <td class="py-2.5 px-3 text-[13px]"><span class="text-amber-300">${esc(r.reason)}</span><br><span class="text-on-surface-variant text-[12px]">${esc(r.description || '')}</span></td>
-        <td class="py-2.5 px-3">${CT.statusChip(r.status)}</td>
-        <td class="py-2.5 px-3"><div class="flex gap-1.5">
-          <button class="px-2 py-1 rounded bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600 hover:text-white text-[12px]" data-act="report" data-id="${r.report_id}" data-status="RESOLVE">Resolve</button>
-          <button class="px-2 py-1 rounded bg-slate-500/20 border border-slate-500/30 text-slate-300 hover:bg-slate-600 hover:text-white text-[12px]" data-act="report" data-id="${r.report_id}" data-status="DISMISS">Dismiss</button>
+      <tr class="border-t-2 border-slate-100 hover:bg-slate-50/80 transition-colors">
+        <td class="py-3 px-3.5 text-[12px] text-slate-500 font-mono font-bold">#${r.report_id}</td>
+        <td class="py-3 px-3.5 font-bold text-slate-900">${esc(r.listing_name)} <span class="text-slate-500 font-normal text-[11px]">by ${esc(r.seller_name)}</span></td>
+        <td class="py-3 px-3.5 text-[12px] text-slate-700">${esc(r.reporter)}</td>
+        <td class="py-3 px-3.5 text-[12px]"><span class="text-amber-800 font-bold">${esc(r.reason)}</span><br><span class="text-slate-500 text-[11px]">${esc(r.description || '')}</span></td>
+        <td class="py-3 px-3.5">${CT.statusChip(r.status)}</td>
+        <td class="py-3 px-3.5"><div class="flex gap-1.5">
+          <button class="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-800 hover:bg-emerald-100 text-[11px] font-bold" data-act="report" data-id="${r.report_id}" data-status="RESOLVE">Resolve</button>
+          <button class="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-300 text-slate-700 hover:bg-slate-200 text-[11px] font-bold" data-act="report" data-id="${r.report_id}" data-status="DISMISS">Dismiss</button>
         </div></td>
       </tr>`).join('');
 
     const cats = st.categories.map((c) => `
-      <div class="flex items-center justify-between py-2 border-b border-outline-variant/20 last:border-0">
+      <div class="flex items-center justify-between p-3 rounded-xl border-2 border-slate-200/80 bg-slate-50/60 hover:border-indigo-300 transition-colors">
         <div>
-          <p class="font-label-md text-on-surface">${esc(c.category_name)}</p>
-          <p class="text-[12px] text-on-surface-variant">${c.product_count || 0} products</p>
+          <p class="font-bold text-slate-900 text-xs">${esc(c.category_name)}</p>
+          <p class="text-[11px] text-slate-500">${c.product_count || 0} products registered</p>
         </div>
-        <button class="px-2 py-1 rounded bg-rose-600/20 border border-rose-500/30 text-rose-300 hover:bg-rose-600 hover:text-white text-[12px]" data-act="cat-del" data-id="${c.category_id}">Delete</button>
+        <button class="px-2.5 py-1 rounded-lg bg-rose-50 border border-rose-300 text-rose-700 hover:bg-rose-100 text-[11px] font-bold" data-act="cat-del" data-id="${c.category_id}">Delete</button>
       </div>`).join('');
 
     const panel = (title, count, head, body, extra) => `
-      <div class="bg-surface-container-low border border-outline-variant/30 rounded-lg overflow-hidden mb-6">
-        <div class="p-4 border-b border-outline-variant/20 flex items-center justify-between bg-surface">
-          <h2 class="font-headline-sm text-headline-sm text-white font-semibold">${title}</h2>
-          <span class="px-2.5 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-label-sm text-[11px]">${count}</span>
+      <div class="bg-white border-2 border-slate-200/90 rounded-2xl shadow-sm overflow-hidden mb-6">
+        <div class="p-4 sm:p-5 border-b-2 border-slate-100 flex items-center justify-between">
+          <h2 class="font-heading font-extrabold text-slate-900 text-sm sm:text-base">${title}</h2>
+          <span class="px-2.5 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold">${count}</span>
         </div>
         ${extra || ''}
-        <div class="overflow-x-auto"><table class="w-full text-sm">${head}${body}</table></div>
+        <div class="overflow-x-auto"><table class="w-full text-xs">${head}<tbody>${body}</tbody></table></div>
       </div>`;
 
-    const th = (label) => `<th class="py-2 px-3 text-left font-label-md text-[11px] uppercase tracking-wider text-outline">${label}</th>`;
+    const th = (label) => `<th class="py-3 px-3.5 text-left font-bold text-[11px] uppercase tracking-wider text-slate-600 bg-slate-50/90 border-b-2 border-slate-200/90">${label}</th>`;
 
     box.innerHTML = `
       ${panel('Registered Students & Accounts', st.users.length,
-        `<thead><tr>${th('Name')}${th('Email')}${th('Student ID')}${th('Dept · Year')}${th('Status')}${th('Listings')}${th('Manage')}</tr></thead><tbody>${users}</tbody>`)}
-      ${panel('All Orders (Buy Flow)', st.orders.length,
-        `<thead><tr>${th('ID')}${th('Item')}${th('Buyer')}${th('Seller')}${th('Amount')}${th('Status')}${th('Payment')}${th('Date')}</tr></thead><tbody>${orders}</tbody>`)}
-      ${panel('All Rentals (Date-Ledger)', st.rentals.length,
-        `<thead><tr>${th('ID')}${th('Item')}${th('Renter')}${th('Period')}${th('Rate · Deposit')}${th('Total')}${th('Status')}</tr></thead><tbody>${rentals}</tbody>`)}
-      ${panel('Dispute / Report Vault', st.reports.length,
-        `<thead><tr>${th('ID')}${th('Listing')}${th('Reporter')}${th('Reason')}${th('Status')}${th('Actions')}</tr></thead><tbody>${reports}</tbody>`,
-        `<div class="p-4 bg-surface-container-lowest border-b border-outline-variant/20 flex gap-2 items-center">
-          <input id="ct-new-cat" class="flex-1 bg-surface-container px-3 py-2 rounded text-sm text-on-surface border border-outline-variant/40 focus:outline-none focus:border-primary" placeholder="Add a new category…">
-          <button class="px-3 py-2 bg-primary text-white rounded text-sm" data-act="cat-add">Add Category</button>
+        `<thead><tr>${th('Name')}${th('Email')}${th('Student ID')}${th('Dept · Year')}${th('Status')}${th('Listings')}${th('Manage')}</tr></thead>`, users)}
+      ${panel('All Orders (Direct Purchases)', st.orders.length,
+        `<thead><tr>${th('ID')}${th('Item')}${th('Buyer')}${th('Seller')}${th('Amount')}${th('Status')}${th('Payment')}${th('Date')}</tr></thead>`, orders)}
+      ${panel('All Rentals (Circulation Ledger)', st.rentals.length,
+        `<thead><tr>${th('ID')}${th('Item')}${th('Renter')}${th('Period')}${th('Rate · Deposit')}${th('Total')}${th('Status')}</tr></thead>`, rentals)}
+      ${panel('Reports & Academic Categories', st.reports.length,
+        `<thead><tr>${th('ID')}${th('Listing')}${th('Reporter')}${th('Reason')}${th('Status')}${th('Actions')}</tr></thead>`, reports,
+        `<div class="p-4 bg-slate-50/70 border-b-2 border-slate-100 flex gap-2.5 items-center">
+          <input id="ct-new-cat" class="flex-1 bg-white px-3.5 py-2 rounded-xl text-xs text-slate-800 border border-slate-300 placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600" placeholder="Add a new campus course category…">
+          <button class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors border border-indigo-700 shrink-0" data-act="cat-add">Add Category</button>
         </div>
-        <div class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">${cats}</div>`)}
-      <p class="text-center text-[12px] text-outline pb-4">UniThrift Admin Console · all mutations go through the JSON API and are reflected instantly across the marketplace.</p>`;
+        <div class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 bg-white">${cats}</div>`)}
+      <p class="text-center text-[11px] text-slate-400 pb-4">UniThrift Campus Admin Console · Live Student Peer Marketplace</p>`;
 
     box.addEventListener('click', onAction);
   }
@@ -250,9 +242,12 @@
     const rowEl = btn.closest('tr');
     if (!rowEl) return;
     __rejectId = +rowEl.dataset.id;
-    const labels = $$('.font-label-lg', rowEl);
+    const labels = $$('.font-semibold', rowEl);
     if ($('#modal-item-title')) $('#modal-item-title').textContent = labels[0] ? labels[0].textContent : 'Item';
-    if ($('#modal-seller-name')) $('#modal-seller-name').textContent = labels[1] ? labels[1].textContent : 'Seller';
+    if ($('#modal-seller-name')) {
+      const p = rowEl.querySelector('td:nth-child(2) p');
+      $('#modal-seller-name').textContent = p ? p.textContent : 'Seller';
+    }
     const modal = $('#reject-modal');
     if (modal) modal.classList.remove('hidden');
   };

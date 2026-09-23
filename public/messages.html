@@ -1,76 +1,163 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Messages · UniThrift</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}::-webkit-scrollbar{display:none;}}</style>
-<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Messages · UniThrift</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <style>
+    :root {
+      --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-body);
+      }
+      body {
+        overscroll-behavior: none;
+        background-color: #f8fafc;
+        color: #0f172a;
+      }
+      h1, h2, h3, h4, h5, h6, .font-heading {
+        font-family: var(--font-heading) !important;
+      }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 </head>
-<body class="bg-[#121318] min-h-screen text-[#f8fafc]">
-<header class="fixed top-0 left-0 right-0 z-50 bg-[#121318]/90 backdrop-blur-md border-b border-[#272a34]">
-  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
-    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2">
-      <img alt="UniThrift" class="w-9 h-9 rounded-lg shadow-[0_0_12px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
-      <div class="flex flex-col leading-none">
-        <span class="font-semibold tracking-tight text-[17px] text-[#f8fafc]">UniThrift</span>
-        <span class="text-[10px] text-[#3b82f6] font-semibold uppercase tracking-[0.14em]">Academic Exchange</span>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+<!-- Uniform Standardized Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+  <div class="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+    <!-- Brand -->
+    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2.5 group shrink-0">
+      <div class="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-700 to-indigo-500 shadow-xs group-hover:shadow-sm transition-all">
+        <img alt="UniThrift" class="w-5 h-5 object-contain" src="/assets/logo.svg">
+      </div>
+      <div class="flex flex-col">
+        <span class="font-heading font-bold text-lg text-slate-900 tracking-tight leading-none group-hover:text-indigo-600 transition-colors">UniThrift</span>
+        <span class="text-[9px] text-indigo-600 uppercase tracking-[0.18em] font-semibold mt-0.5">Campus Exchange</span>
       </div>
     </a>
-    <nav class="hidden lg:flex items-center gap-1 text-sm">
-      <a data-path="marketplace" href="/index.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Marketplace</a>
-      <a data-path="post-an-item" href="/post.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Post an Item</a>
-      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">My Rentals &amp; Orders</a>
-      <a data-path="messages" href="/messages.html" class="px-3 py-1.5 text-[#3b82f6] hover:text-[#f8fafc] rounded-lg transition-colors font-medium">Messages</a>
+
+    <!-- Center Navigation Links -->
+    <nav class="hidden lg:flex items-center gap-1.5 text-xs font-medium">
+      <a data-path="marketplace" href="/index.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">Marketplace</a>
+      <a data-path="post-an-item" href="/post.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">Post an Item</a>
+      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">My Rentals &amp; Orders</a>
+      <a data-path="messages" href="/messages.html" class="px-3.5 py-2 bg-indigo-50 border border-indigo-200 text-indigo-700 font-semibold transition-all rounded-xl shadow-xs">Messages</a>
+      <a data-path="admin-dashboard" href="/admin.html" class="admin-link px-3.5 py-2 text-amber-700 hover:text-amber-800 hover:bg-amber-50 transition-all rounded-xl" style="display:none;">Admin</a>
     </nav>
-    <div class="flex items-center gap-3">
-      <a data-path="wishlist" href="/wishlist.html" class="relative p-1.5 text-[#94a3b8] hover:text-[#3b82f6] rounded-lg">
-        <span class="material-symbols-outlined text-[22px]">bookmark</span>
-        <span class="wishlist-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] text-white text-[9px] rounded-full items-center justify-center font-bold hidden">0</span>
+
+    <!-- Right Actions Hub -->
+    <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+      <a href="/post.html" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs transition-all hover:scale-[1.02]">
+        <span class="material-symbols-outlined text-[16px]">add</span>
+        <span>Post Item</span>
       </a>
-      <div class="flex items-center gap-2 pl-2">
-        <div class="hidden md:flex flex-col text-right leading-tight">
-          <span class="text-[13px] text-[#f8fafc]">Guest</span>
-          <span class="text-[11px] text-[#94a3b8]">Sign in to continue</span>
-        </div>
-        <img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-[#272a34]" src="/assets/avatar.png">
+      <a aria-label="Wishlist" data-path="wishlist" href="/wishlist.html" class="relative p-2 text-slate-500 hover:text-indigo-600 transition-colors flex items-center justify-center rounded-xl hover:bg-slate-100">
+        <span class="material-symbols-outlined text-[20px]">bookmark</span>
+        <span class="wishlist-badge absolute top-1 right-1 w-4 h-4 bg-indigo-600 text-white text-[9px] rounded-full flex items-center justify-center font-bold shadow-xs" style="display:none;">0</span>
+      </a>
+      <a aria-label="Notifications" data-path="notifications" href="/messages.html" class="relative p-2 text-indigo-600 bg-indigo-50 border border-indigo-200 flex items-center justify-center rounded-xl">
+        <span class="material-symbols-outlined text-[20px]">notifications</span>
+      </a>
+      <div id="header-auth-section" class="flex items-center">
+        <a href="/login.html" class="text-xs font-semibold text-slate-700 hover:text-slate-900 px-3.5 py-2 rounded-xl transition-all hover:bg-slate-100">Sign In</a>
       </div>
     </div>
   </div>
 </header>
 
-<main class="pt-24 pb-16 max-w-7xl mx-auto px-6">
+<main class="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
   <div class="mb-6">
-    <h1 class="text-2xl font-bold tracking-tight">Messages</h1>
-    <p class="text-sm text-[#94a3b8] mt-1">In-app negotiation with buyers, sellers and renters — every thread persisted in the messages table.</p>
+    <h1 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Messages</h1>
+    <p class="text-xs sm:text-sm text-slate-500 mt-1">Coordinate handovers and exchange details directly with student buyers and sellers.</p>
   </div>
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 h-[64vh]">
-    <aside class="lg:col-span-4 bg-[#1a1b21] border border-[#272a34] rounded-xl overflow-hidden flex flex-col">
-      <div class="p-3 border-b border-[#272a34] bg-[#121318]">
-        <p class="text-[13px] font-semibold px-1">Conversations</p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 h-[68vh]">
+    <!-- Conversation Sidebar -->
+    <aside class="lg:col-span-4 bg-white border-2 border-slate-200/90 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+      <div class="p-3.5 border-b-2 border-slate-100 bg-slate-50 flex items-center gap-2">
+        <span class="material-symbols-outlined text-indigo-600 text-[18px]">forum</span>
+        <p class="font-heading text-xs font-bold text-slate-900 uppercase tracking-wider">Conversations</p>
       </div>
-      <div id="convo-list" class="flex-1 overflow-y-auto divide-y divide-[#272a34]/60"></div>
+      <div id="convo-list" class="flex-1 overflow-y-auto divide-y divide-slate-100"></div>
     </aside>
-    <section class="lg:col-span-8 bg-[#1a1b21] border border-[#272a34] rounded-xl overflow-hidden flex flex-col">
-      <div class="p-4 border-b border-[#272a34] bg-[#121318] flex items-center justify-between gap-3" id="thread-header">
+
+    <!-- Chat Active Thread View -->
+    <section class="lg:col-span-8 bg-white border-2 border-slate-200/90 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+      <div class="p-4 border-b-2 border-slate-100 bg-slate-50 flex items-center justify-between gap-3" id="thread-header">
         <div>
-          <p class="font-semibold text-[15px]" id="thread-name">Select a conversation</p>
-          <p class="text-[12px] text-[#94a3b8]" id="thread-sub">Choose a thread from the left to start chatting.</p>
+          <p class="font-heading font-extrabold text-sm text-slate-900" id="thread-name">Select a conversation</p>
+          <p class="text-[11px] text-slate-500 font-medium" id="thread-sub">Choose a thread from the left to start chatting.</p>
         </div>
-        <a id="thread-listing-link" class="hidden px-3 py-1.5 rounded-lg bg-[#2563eb]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-[12px] font-medium hover:bg-[#2563eb]/20 transition-colors" href="#">View listing →</a>
+        <a id="thread-listing-link" class="hidden px-3.5 py-1.5 rounded-xl bg-indigo-50 border border-indigo-300 text-indigo-700 text-xs font-bold hover:bg-indigo-100 transition-colors shadow-2xs" href="#">View Item &rarr;</a>
       </div>
-      <div id="thread-body" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#0d0e13]/40"></div>
-      <form id="compose" class="p-3 border-t border-[#272a34] flex gap-2 bg-[#121318]">
-        <input id="msg-input" class="flex-1 bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2 text-sm text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6]" placeholder="Type a message…" autocomplete="off">
-        <button class="px-4 py-2 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5">
-          <span class="material-symbols-outlined text-[17px]">send</span> Send
+      <div id="thread-body" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/50"></div>
+      <form id="compose" class="p-3.5 border-t-2 border-slate-100 flex gap-2.5 bg-white">
+        <input id="msg-input" class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-indigo-600 font-medium" placeholder="Type a message to coordinate meetup..." autocomplete="off">
+        <button class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs border border-indigo-700 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[17px]">send</span>
+          <span>Send</span>
         </button>
       </form>
     </section>
   </div>
 </main>
+
+<!-- Uniform Standardized Footer -->
+<footer class="w-full bg-white border-t border-slate-200 py-12 mt-16 text-slate-600">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined text-[18px]">school</span>
+          </div>
+          <span class="font-heading font-bold text-lg text-slate-900">UniThrift</span>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed font-normal">
+          A peer-to-peer university academic material exchange and textbook rental system designed to make learning materials accessible and affordable for every student.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm text-slate-900 mb-3">Campus Exchange Tips</h4>
+        <ul class="flex flex-col gap-2 text-xs text-slate-500">
+          <li class="flex items-center gap-1.5">• Meet inside monitored campus library exchange desks.</li>
+          <li class="flex items-center gap-1.5">• Inspect textbook condition before completing payment.</li>
+          <li class="flex items-center gap-1.5">• Return rentals on time to keep deposits secure.</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm text-slate-900 mb-3">Quick Links</h4>
+        <ul class="flex flex-col gap-2 text-xs text-slate-500">
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Marketplace Browse</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/post.html">Post a Listing</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/orders.html">My Orders &amp; Rentals</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm text-slate-900 mb-3">Departments</h4>
+        <ul class="flex flex-col gap-2 text-xs text-slate-500">
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Computer Science &amp; IT</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Electronics &amp; Communication</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Mechanical &amp; Civil</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-6 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-400 text-xs font-normal">
+      <p>&copy; 2026 UniThrift Campus Exchange.</p>
+    </div>
+  </div>
+</footer>
 
 <script src="/js/app.js"></script>
 <script>
@@ -88,16 +175,16 @@
     state.conversations = d.conversations || [];
     const list = $('#convo-list');
     if (!state.conversations.length) {
-      list.innerHTML = `<div class="p-6 text-center text-[#94a3b8] text-sm">No conversations yet.<br>Open a listing and hit "Message Seller".</div>`;
+      list.innerHTML = `<div class="p-6 text-center text-slate-400 text-xs">No conversations yet.<br>Open a listing and click "Message Seller".</div>`;
       return;
     }
     list.innerHTML = state.conversations.map((c) => `
-      <button class="convo-btn w-full text-left px-4 py-3 hover:bg-[#121318] transition-colors ${state.activeOther === c.other_id ? 'bg-[#121318]' : ''}" data-other="${c.other_id}" data-listing="${c.listing_id || ''}">
+      <button class="convo-btn w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors ${state.activeOther === c.other_id ? 'bg-indigo-50/60' : ''}" data-other="${c.other_id}" data-listing="${c.listing_id || ''}">
         <div class="flex items-center justify-between gap-2">
-          <span class="font-semibold text-[14px] truncate">${c.other_name}</span>
-          <span class="text-[11px] text-[#64748b] shrink-0">${fmtTime(c.last_at)}</span>
+          <span class="font-heading font-bold text-xs text-slate-900 truncate">${c.other_name}</span>
+          <span class="text-[10px] text-slate-400 shrink-0">${fmtTime(c.last_at)}</span>
         </div>
-        <p class="text-[12px] text-[#94a3b8] truncate mt-0.5">${c.listing_name ? '<span class="text-[#3b82f6]">' + c.listing_name + '</span> · ' : ''}${c.last_message}</p>
+        <p class="text-[11px] text-slate-500 truncate mt-0.5">${c.listing_name ? '<span class="text-indigo-600 font-semibold">' + c.listing_name + '</span> · ' : ''}${c.last_message}</p>
       </button>`).join('');
     $$('.convo-btn', list).forEach((btn) => btn.addEventListener('click', () => {
       openThread(+btn.dataset.other, btn.dataset.listing ? +btn.dataset.listing : null);
@@ -107,7 +194,7 @@
   async function openThread(otherId, listingId) {
     state.activeOther = otherId;
     state.activeListing = listingId || null;
-    loadConversations(); // refresh highlight
+    loadConversations();
     const u = await CT.me();
     state.meId = u.id;
     const d = await CT.api('/api/messages?otherId=' + otherId);
@@ -125,12 +212,12 @@
     body.innerHTML = d.messages.length
       ? d.messages.map((m) => `
         <div class="flex ${m.sender_id === state.meId ? 'justify-end' : 'justify-start'}">
-          <div class="max-w-[75%] ${m.sender_id === state.meId ? 'bg-[#2563eb] text-white rounded-2xl rounded-br-md' : 'bg-[#1e1f25] border border-[#272a34] text-[#f8fafc] rounded-2xl rounded-bl-md'} px-3.5 py-2 text-sm">
-            <p>${m.message}</p>
-            <p class="text-[10px] ${m.sender_id === state.meId ? 'text-white/60' : 'text-[#64748b]'} mt-1">${fmtTime(m.sent_at)}</p>
+          <div class="max-w-[75%] ${m.sender_id === state.meId ? 'bg-indigo-600 text-white rounded-2xl rounded-br-xs shadow-xs' : 'bg-white border border-slate-200 text-slate-800 rounded-2xl rounded-bl-xs shadow-2xs'} px-3.5 py-2 text-xs">
+            <p class="leading-relaxed">${m.message}</p>
+            <p class="text-[10px] ${m.sender_id === state.meId ? 'text-indigo-200' : 'text-slate-400'} mt-1 text-right">${fmtTime(m.sent_at)}</p>
           </div>
         </div>`).join('')
-      : `<div class="h-full flex items-center justify-center text-[#94a3b8] text-sm">Say hello 👋</div>`;
+      : `<div class="h-full flex items-center justify-center text-slate-400 text-xs">Say hello 👋</div>`;
     body.scrollTop = body.scrollHeight;
     $('#msg-input').focus();
   }

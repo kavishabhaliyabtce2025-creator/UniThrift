@@ -1,109 +1,216 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Profile · UniThrift</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}::-webkit-scrollbar{display:none;}}</style>
-<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Profile · UniThrift</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <style>
+    :root {
+      --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-body);
+      }
+      body {
+        overscroll-behavior: none;
+        background-color: #f8fafc;
+        color: #0f172a;
+      }
+      h1, h2, h3, h4, h5, h6, .font-heading {
+        font-family: var(--font-heading) !important;
+      }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 </head>
-<body class="bg-[#121318] min-h-screen text-[#f8fafc]">
-<header class="fixed top-0 left-0 right-0 z-50 bg-[#121318]/90 backdrop-blur-md border-b border-[#272a34]">
-  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
-    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2">
-      <img alt="UniThrift" class="w-9 h-9 rounded-lg shadow-[0_0_12px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
-      <div class="flex flex-col leading-none">
-        <span class="font-semibold tracking-tight text-[17px] text-[#f8fafc]">UniThrift</span>
-        <span class="text-[10px] text-[#3b82f6] font-semibold uppercase tracking-[0.14em]">Academic Exchange</span>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+<!-- Uniform Standardized Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+  <div class="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+    <!-- Brand -->
+    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2.5 group shrink-0">
+      <div class="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-700 to-indigo-500 shadow-xs group-hover:shadow-sm transition-all">
+        <img alt="UniThrift" class="w-5 h-5 object-contain" src="/assets/logo.svg">
+      </div>
+      <div class="flex flex-col">
+        <span class="font-heading font-bold text-lg text-slate-900 tracking-tight leading-none group-hover:text-indigo-600 transition-colors">UniThrift</span>
+        <span class="text-[9px] text-indigo-600 uppercase tracking-[0.18em] font-semibold mt-0.5">Campus Exchange</span>
       </div>
     </a>
-    <nav class="hidden lg:flex items-center gap-1 text-sm">
-      <a data-path="marketplace" href="/index.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Marketplace</a>
-      <a data-path="post-an-item" href="/post.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Post an Item</a>
-      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">My Rentals &amp; Orders</a>
-      <a data-path="messages" href="/messages.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Messages</a>
-      <a data-path="admin-dashboard" href="/admin.html" class="admin-link px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors hidden">Admin</a>
+
+    <!-- Center Navigation Links -->
+    <nav class="hidden lg:flex items-center gap-1.5 text-xs font-medium">
+      <a data-path="marketplace" href="/index.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">Marketplace</a>
+      <a data-path="post-an-item" href="/post.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">Post an Item</a>
+      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">My Rentals &amp; Orders</a>
+      <a data-path="messages" href="/messages.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">Messages</a>
+      <a data-path="admin-dashboard" href="/admin.html" class="admin-link px-3.5 py-2 text-amber-700 hover:text-amber-800 hover:bg-amber-50 transition-all rounded-xl" style="display:none;">Admin</a>
     </nav>
-    <div class="flex items-center gap-3">
-      <a data-path="wishlist" href="/wishlist.html" class="relative p-1.5 text-[#94a3b8] hover:text-[#3b82f6] rounded-lg">
-        <span class="material-symbols-outlined text-[22px]">bookmark</span>
-        <span class="wishlist-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] text-white text-[9px] rounded-full items-center justify-center font-bold hidden">0</span>
+
+    <!-- Right Actions Hub -->
+    <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+      <a href="/post.html" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs transition-all hover:scale-[1.02]">
+        <span class="material-symbols-outlined text-[16px]">add</span>
+        <span>Post Item</span>
       </a>
-      <div class="flex items-center gap-2 pl-2">
-        <div class="hidden md:flex flex-col text-right leading-tight">
-          <span class="text-[13px] text-[#f8fafc]">Guest</span>
-          <span class="text-[11px] text-[#94a3b8]">Sign in to continue</span>
-        </div>
-        <img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-[#272a34]" src="/assets/avatar.png">
+      <a aria-label="Wishlist" data-path="wishlist" href="/wishlist.html" class="relative p-2 text-slate-500 hover:text-indigo-600 transition-colors flex items-center justify-center rounded-xl hover:bg-slate-100">
+        <span class="material-symbols-outlined text-[20px]">bookmark</span>
+        <span class="wishlist-badge absolute top-1 right-1 w-4 h-4 bg-indigo-600 text-white text-[9px] rounded-full flex items-center justify-center font-bold shadow-xs" style="display:none;">0</span>
+      </a>
+      <a aria-label="Notifications" data-path="notifications" href="/messages.html" class="relative p-2 text-slate-500 hover:text-indigo-600 transition-colors flex items-center justify-center rounded-xl hover:bg-slate-100">
+        <span class="material-symbols-outlined text-[20px]">notifications</span>
+      </a>
+      <div id="header-auth-section" class="flex items-center">
+        <a href="/login.html" class="text-xs font-semibold text-slate-700 hover:text-slate-900 px-3.5 py-2 rounded-xl transition-all hover:bg-slate-100">Sign In</a>
       </div>
     </div>
   </div>
 </header>
 
-<main class="pt-24 pb-20 max-w-7xl mx-auto px-6">
+<main class="pt-24 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- identity card -->
-    <section class="bg-[#1a1b21] border border-[#272a34] rounded-2xl p-6 h-max">
-      <div class="flex items-center gap-4">
-        <img id="prof-avatar" class="w-16 h-16 rounded-full object-cover border-2 border-[#3b82f6]/40" src="/assets/avatar.png" alt="">
+
+    <!-- Identity Card -->
+    <section class="bg-white border-2 border-slate-200/90 rounded-2xl p-6 shadow-sm h-max space-y-5">
+      <div class="flex items-center gap-4 pb-4 border-b-2 border-slate-100">
+        <img id="prof-avatar" class="w-16 h-16 rounded-2xl object-cover border-2 border-indigo-200 shadow-xs" src="/assets/avatar.png" alt="User avatar">
         <div>
-          <h1 id="prof-name" class="text-lg font-bold">—</h1>
-          <p id="prof-role" class="text-[13px] text-[#94a3b8]">Student</p>
+          <h1 id="prof-name" class="font-heading text-lg font-extrabold text-slate-900 leading-tight">—</h1>
+          <div class="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-md bg-indigo-50 border border-indigo-200 text-indigo-700 text-[10px] font-bold">
+            <span class="material-symbols-outlined text-[12px]">verified</span>
+            <span id="prof-role">Student</span>
+          </div>
         </div>
       </div>
-      <dl class="mt-5 space-y-2.5 text-sm">
-        <div class="flex justify-between"><dt class="text-[#94a3b8]">Student ID</dt><dd id="prof-sid" class="font-medium">—</dd></div>
-        <div class="flex justify-between"><dt class="text-[#94a3b8]">Email</dt><dd id="prof-email" class="font-medium">—</dd></div>
-        <div class="flex justify-between"><dt class="text-[#94a3b8]">Department</dt><dd id="prof-dept" class="font-medium">—</dd></div>
-        <div class="flex justify-between"><dt class="text-[#94a3b8]">Year</dt><dd id="prof-year" class="font-medium">—</dd></div>
-        <div class="flex justify-between"><dt class="text-[#94a3b8]">Phone</dt><dd id="prof-phone" class="font-medium">—</dd></div>
+
+      <dl class="space-y-2 text-xs">
+        <div class="flex justify-between py-1.5 border-b border-slate-100"><dt class="text-slate-500 font-medium">Student ID</dt><dd id="prof-sid" class="font-bold text-slate-900">—</dd></div>
+        <div class="flex justify-between py-1.5 border-b border-slate-100"><dt class="text-slate-500 font-medium">Email</dt><dd id="prof-email" class="font-bold text-slate-900 truncate max-w-[180px]">—</dd></div>
+        <div class="flex justify-between py-1.5 border-b border-slate-100"><dt class="text-slate-500 font-medium">Department</dt><dd id="prof-dept" class="font-bold text-slate-900">—</dd></div>
+        <div class="flex justify-between py-1.5 border-b border-slate-100"><dt class="text-slate-500 font-medium">Year of Study</dt><dd id="prof-year" class="font-bold text-slate-900">—</dd></div>
+        <div class="flex justify-between py-1.5"><dt class="text-slate-500 font-medium">Phone</dt><dd id="prof-phone" class="font-bold text-slate-900">—</dd></div>
       </dl>
-      <button id="logout-btn" class="mt-6 w-full px-3 py-2 rounded-lg bg-rose-600/20 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white text-sm font-medium transition-colors flex items-center justify-center gap-2">
-        <span class="material-symbols-outlined text-[17px]">logout</span> Sign out
-      </button>
+
+      <div class="pt-2 border-t-2 border-slate-100">
+        <button id="logout-btn" class="w-full px-3 py-2.5 rounded-xl bg-rose-50 border-2 border-rose-200 text-rose-700 hover:bg-rose-100 text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs">
+          <span class="material-symbols-outlined text-[17px]">logout</span>
+          <span>Sign Out</span>
+        </button>
+      </div>
     </section>
 
-    <!-- edit + listings -->
+    <!-- Edit Profile & Listings -->
     <div class="lg:col-span-2 space-y-6">
-      <section class="bg-[#1a1b21] border border-[#272a34] rounded-2xl p-6">
-        <h2 class="font-semibold mb-4">Edit profile</h2>
+
+      <!-- Edit Form -->
+      <section class="bg-white border-2 border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-5">
+        <div class="flex items-center gap-2 pb-3.5 border-b-2 border-slate-100">
+          <span class="p-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700">
+            <span class="material-symbols-outlined text-[18px] block">manage_accounts</span>
+          </span>
+          <h2 class="font-heading text-base font-extrabold text-slate-900">Edit Profile Details</h2>
+        </div>
         <form id="profile-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm text-[#cbd5e1] mb-1.5" for="f-name">Full name</label>
-            <input id="f-name" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-sm text-[#f8fafc] focus:outline-none focus:border-[#3b82f6]" required>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5" for="f-name">Full Name</label>
+            <input id="f-name" class="w-full bg-slate-50/50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600" required>
           </div>
           <div>
-            <label class="block text-sm text-[#cbd5e1] mb-1.5" for="f-phone">Phone</label>
-            <input id="f-phone" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-sm text-[#f8fafc] focus:outline-none focus:border-[#3b82f6]" required>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5" for="f-phone">Phone Number</label>
+            <input id="f-phone" class="w-full bg-slate-50/50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600" required>
           </div>
           <div>
-            <label class="block text-sm text-[#cbd5e1] mb-1.5" for="f-dept">Department</label>
-            <input id="f-dept" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-sm text-[#f8fafc] focus:outline-none focus:border-[#3b82f6]" required>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5" for="f-dept">Department</label>
+            <input id="f-dept" class="w-full bg-slate-50/50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600" required>
           </div>
           <div>
-            <label class="block text-sm text-[#cbd5e1] mb-1.5" for="f-year">Year</label>
-            <input id="f-year" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-sm text-[#f8fafc] focus:outline-none focus:border-[#3b82f6]" required>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5" for="f-year">Year of Study</label>
+            <input id="f-year" class="w-full bg-slate-50/50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600" required>
           </div>
-          <div class="sm:col-span-2">
-            <button type="submit" class="px-4 py-2.5 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-lg text-sm font-medium transition-colors">Save changes</button>
+          <div class="sm:col-span-2 pt-2 border-t-2 border-slate-100 flex items-center justify-between">
+            <p class="text-[11px] text-slate-500">Updates are synchronized immediately to campus buyers and renters.</p>
+            <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs border border-indigo-700">
+              Save Changes
+            </button>
           </div>
         </form>
       </section>
 
-      <section class="bg-[#1a1b21] border border-[#272a34] rounded-2xl p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="font-semibold">My listings</h2>
-          <a href="/post.html" class="px-3 py-1.5 rounded-lg bg-[#2563eb]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-[13px] font-medium hover:bg-[#2563eb]/20 transition-colors flex items-center gap-1">
-            <span class="material-symbols-outlined text-[16px]">add</span> New listing
+      <!-- My Active Listings -->
+      <section class="bg-white border-2 border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-5">
+        <div class="flex items-center justify-between pb-3.5 border-b-2 border-slate-100">
+          <div class="flex items-center gap-2">
+            <span class="p-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700">
+              <span class="material-symbols-outlined text-[18px] block">inventory_2</span>
+            </span>
+            <h2 class="font-heading text-base font-extrabold text-slate-900">My Items for Sale &amp; Rent</h2>
+          </div>
+          <a href="/post.html" class="px-3.5 py-1.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold hover:bg-indigo-100 transition-colors flex items-center gap-1 shadow-2xs">
+            <span class="material-symbols-outlined text-[16px]">add</span>
+            <span>New Listing</span>
           </a>
         </div>
         <div id="my-listings" class="space-y-3"></div>
       </section>
+
     </div>
   </div>
 </main>
+
+<!-- Uniform Standardized Footer -->
+<footer class="w-full bg-white border-t border-slate-200 py-12 mt-16 text-slate-600">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined text-[18px]">school</span>
+          </div>
+          <span class="font-heading font-bold text-lg text-slate-900">UniThrift</span>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed font-normal">
+          A peer-to-peer university academic material exchange and textbook rental system designed to make learning materials accessible and affordable for every student.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm text-slate-900 mb-3">Campus Exchange Tips</h4>
+        <ul class="flex flex-col gap-2 text-xs text-slate-500">
+          <li class="flex items-center gap-1.5">• Meet inside monitored campus library exchange desks.</li>
+          <li class="flex items-center gap-1.5">• Inspect textbook condition before completing payment.</li>
+          <li class="flex items-center gap-1.5">• Return rentals on time to keep deposits secure.</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm text-slate-900 mb-3">Quick Links</h4>
+        <ul class="flex flex-col gap-2 text-xs text-slate-500">
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Marketplace Browse</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/post.html">Post a Listing</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/orders.html">My Orders &amp; Rentals</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm text-slate-900 mb-3">Departments</h4>
+        <ul class="flex flex-col gap-2 text-xs text-slate-500">
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Computer Science &amp; IT</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Electronics &amp; Communication</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Mechanical &amp; Civil</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-6 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-400 text-xs font-normal">
+      <p>&copy; 2026 UniThrift Campus Exchange.</p>
+    </div>
+  </div>
+</footer>
 
 <script src="/js/app.js"></script>
 <script>
@@ -117,74 +224,89 @@
   function renderListings(listings) {
     const wrap = $('#my-listings');
     if (!listings.length) {
-      wrap.innerHTML = `<div class="bg-[#0d0e13] border border-[#272a34] rounded-xl p-8 text-center text-[#94a3b8] text-sm">You haven't posted anything yet. Post your first item!</div>`;
+      wrap.innerHTML = `<div class="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center text-slate-500 text-xs">
+        <span class="material-symbols-outlined text-[32px] text-slate-400 block mb-1">inventory</span>
+        You haven't posted any items yet. Post your first textbook or engineering tool!
+      </div>`;
       return;
     }
     wrap.innerHTML = listings.map((l) => `
-      <div class="bg-[#0d0e13] border border-[#272a34] rounded-xl p-3.5 flex items-center gap-3.5">
-        <img class="w-12 h-14 object-cover rounded-lg flex-shrink-0" src="${imgOf(l)}" alt="">
-        <div class="flex-1 min-w-0">
-          <p class="font-medium text-[14px] truncate"><a class="hover:text-[#3b82f6]" href="/product.html?id=${l.id}">${l.product.name}</a></p>
-          <p class="text-[12px] text-[#94a3b8]">${CT.money(l.salePrice ?? l.rentPrice)}${l.salePrice != null && l.rentPrice != null ? ' · rent ' + CT.money(l.rentPrice) + '/day' : ''} · ${l.location}</p>
+      <div class="bg-white border-2 border-slate-200/90 hover:border-indigo-400 rounded-2xl p-4 flex items-center justify-between gap-4 transition-all shadow-xs">
+        <div class="flex items-center gap-3.5 min-w-0">
+          <img class="w-14 h-16 object-cover rounded-xl shrink-0 border-2 border-slate-200 shadow-2xs" src="${imgOf(l)}" alt="">
+          <div class="min-w-0">
+            <p class="font-heading font-extrabold text-xs sm:text-sm text-slate-900 truncate">
+              <a class="hover:text-indigo-600 transition-colors" href="/product.html?id=${l.id}">${l.product.name}</a>
+            </p>
+            <div class="flex flex-wrap items-center gap-2 mt-1">
+              <span class="text-xs font-extrabold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md">
+                ${CT.money(l.salePrice ?? l.rentPrice)}
+              </span>
+              ${l.rentPrice != null ? `<span class="text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">Rent ${CT.money(l.rentPrice)}/d</span>` : ''}
+              <span class="text-[11px] text-slate-500 flex items-center gap-0.5">
+                <span class="material-symbols-outlined text-[13px]">location_on</span>
+                ${l.location}
+              </span>
+            </div>
+          </div>
         </div>
-        ${CT.statusChip(l.status)}
-        ${['PENDING', 'AVAILABLE', 'RESERVED', 'RENTED'].includes(l.status)
-          ? `<button class="px-2.5 py-1.5 rounded-lg bg-rose-600/20 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white text-[12px] font-medium transition-colors" data-del="${l.id}">Remove</button>`
-          : ''}
+        <div class="shrink-0 flex items-center gap-2">
+          ${CT.statusChip(l.status)}
+          <a href="/product.html?id=${l.id}" class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-colors">
+            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+          </a>
+        </div>
       </div>`).join('');
-    $$('[data-del]', wrap).forEach((b) => b.addEventListener('click', async () => {
-      if (!confirm('Remove this listing? Pending requests will be cancelled.')) return;
-      try {
-        await CT.api('/api/listings/' + b.dataset.del, { method: 'DELETE' });
-        CT.showToast('Listing removed.');
-        loadAll();
-      } catch (err) { CT.showToast(err.message, true); }
-    }));
   }
 
-  async function loadAll() {
+  async function load() {
     const u = await CT.me(true);
-    if (!u) { location.href = '/login.html'; return; }
+    if (!u) {
+      CT.showToast('Please log in to view your profile.', true);
+      setTimeout(() => { location.href = '/login.html?next=/profile.html'; }, 800);
+      return;
+    }
     $('#prof-name').textContent = u.name;
-    $('#prof-role').textContent = u.role === 'ADMIN' ? 'Administrator' : `Verified Student`;
-    $('#prof-sid').textContent = u.studentId;
+    $('#prof-role').textContent = u.role === 'ADMIN' ? 'Platform Administrator' : 'Verified Campus Student';
+    $('#prof-sid').textContent = u.studentId || '—';
     $('#prof-email').textContent = u.email;
-    $('#prof-dept').textContent = u.department;
-    $('#prof-year').textContent = u.year;
-    $('#prof-phone').textContent = u.phone;
-    $('#f-name').value = u.name;
-    $('#f-phone').value = u.phone;
-    $('#f-dept').value = u.department;
-    $('#f-year').value = u.year;
+    $('#prof-dept').textContent = u.department || '—';
+    $('#prof-year').textContent = u.year || '—';
+    $('#prof-phone').textContent = u.phone || '—';
+
+    $('#f-name').value = u.name || '';
+    $('#f-phone').value = u.phone || '';
+    $('#f-dept').value = u.department || '';
+    $('#f-year').value = u.year || '';
+
     try {
       const d = await CT.api('/api/my/listings');
-      renderListings(d.listings);
-    } catch (err) { CT.showToast(err.message, true); }
+      renderListings(d.listings || []);
+    } catch { /* ignore */ }
   }
 
   $('#profile-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     try {
-      await CT.api('/api/users/me', {
+      const d = await CT.api('/api/auth/me', {
         method: 'PUT',
-        body: { name: $('#f-name').value.trim(), phone: $('#f-phone').value.trim(), department: $('#f-dept').value.trim(), year: $('#f-year').value.trim() },
+        body: {
+          name: $('#f-name').value.trim(),
+          phone: $('#f-phone').value.trim(),
+          department: $('#f-dept').value.trim(),
+          year: $('#f-year').value.trim(),
+        },
       });
-      CT.showToast('Profile updated.');
-      CT.initAuth();
-      loadAll();
-    } catch (err) { CT.showToast(err.message, true); }
+      CT.showToast('Profile updated successfully.');
+      load();
+    } catch (err) {
+      CT.showToast(err.message, true);
+    }
   });
 
-  $('#logout-btn').addEventListener('click', async () => {
-    try { await CT.api('/api/auth/logout', { method: 'POST' }); } catch { /* ignore */ }
-    location.href = '/login.html';
-  });
+  $('#logout-btn').addEventListener('click', () => CT.logout());
 
-  (async () => {
-    const u = await CT.me(true);
-    if (!u) { CT.showToast('Please log in.', true); setTimeout(() => { location.href = '/login.html?next=/profile.html'; }, 700); return; }
-    try { await loadAll(); } catch (err) { CT.showToast(err.message, true); }
-  })();
+  load();
 })();
 </script>
 </body>

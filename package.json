@@ -1,0 +1,17 @@
+{
+  "name": "unithrift",
+  "version": "1.0.0",
+  "description": "Campus thrift marketplace for students to buy, sell, and rent academic items",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "campus",
+    "marketplace",
+    "unithrift"
+  ],
+  "author": "",
+  "license": "ISC"
+}

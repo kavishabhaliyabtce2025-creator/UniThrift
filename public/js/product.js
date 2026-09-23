@@ -108,21 +108,33 @@
 
   function renderPanes() {
     // mode tabs visibility by listing type
+    const tabBuy = $('#tab-buy');
+    const tabRent = $('#tab-rent');
+    const paneBuy = $('#pane-buy');
+    const paneRent = $('#pane-rent');
+    const switcher = tabBuy ? tabBuy.parentElement : null;
+
     if (listing.type === 'SALE') {
-      const t = $('#tab-rent'), p = $('#pane-rent');
-      if (t) t.style.display = 'none';
-      if (p) p.style.display = 'none';
+      if (tabRent) tabRent.style.display = 'none';
+      if (paneRent) paneRent.style.display = 'none';
+      if (switcher) switcher.style.display = 'none';
+      if (paneBuy) paneBuy.classList.remove('hidden');
     } else if (listing.type === 'RENT') {
-      const t = $('#tab-buy'), p = $('#pane-buy');
-      if (t) t.style.display = 'none';
-      if (p) p.style.display = 'none';
+      if (tabBuy) tabBuy.style.display = 'none';
+      if (paneBuy) paneBuy.style.display = 'none';
+      if (switcher) switcher.style.display = 'none';
+      if (paneRent) paneRent.classList.remove('hidden');
+    } else {
+      if (switcher) switcher.style.display = 'flex';
+      if (tabBuy) tabBuy.style.display = '';
+      if (tabRent) tabRent.style.display = '';
+      if (paneBuy) paneBuy.classList.remove('hidden');
     }
     // buy pane
-    const buyPane = $('#pane-buy');
-    if (buyPane) {
-      const priceEl = $('.font-display-lg', buyPane);
+    if (paneBuy) {
+      const priceEl = $('.font-display-lg', paneBuy);
       if (priceEl) priceEl.textContent = CT.money(listing.salePrice);
-      $$('span', buyPane).forEach((s) => {
+      $$('span', paneBuy).forEach((s) => {
         if (/^(₹|\$)\d/.test(s.textContent.trim()) && (s.className.includes('text-primary') || s.className.includes('font-medium'))) {
           s.textContent = CT.money(listing.salePrice);
         }
@@ -135,16 +147,15 @@
         const chip = $('#save-chip');
         if (chip && retail > 0) chip.textContent = `Save ${Math.round((1 - listing.salePrice / retail) * 100)}% vs Bookstore`;
       }
-      const btn = $('button', buyPane);
+      const btn = $('button', paneBuy);
       if (btn) btn.onclick = () => openReservationModal('buy', listing.salePrice);
     }
     // rent pane
-    const rentPane = $('#pane-rent');
-    if (rentPane) {
-      const priceEl = $('.font-display-lg', rentPane);
+    if (paneRent) {
+      const priceEl = $('.font-display-lg', paneRent);
       if (priceEl) {
         priceEl.textContent = CT.money(listing.rentPrice);
-        const unit = $$('span', rentPane).find((s) => s.textContent.trim() === '/ month');
+        const unit = $$('span', paneRent).find((s) => s.textContent.trim() === '/ month');
         if (unit) unit.textContent = '/ day';
         const rateEl = $('#rental-rate-text');
         if (rateEl) rateEl.textContent = CT.money(listing.rentPrice);
@@ -180,24 +191,24 @@
     const gridEl = $$('.grid').find((g) => g.className.includes('md:grid-cols-3'));
     if (!gridEl) return;
     if (!reviews.length) {
-      gridEl.innerHTML = `<div class="col-span-3 bg-surface-container-lowest p-6 rounded-xl text-center text-on-surface-variant font-body-md">No reviews yet — the first buyer to complete a handover will be the first to review.</div>`;
+      gridEl.innerHTML = `<div class="col-span-3 bg-[#12131c] border border-[#222432] p-8 rounded-2xl text-center text-slate-400 text-sm">No reviews yet — the first buyer to complete a handover will be the first to review.</div>`;
       return;
     }
     gridEl.innerHTML = reviews.map((r) => `
-      <div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
+      <div class="bg-[#12131c] border border-[#222432] p-5 rounded-2xl shadow-xl flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-1">
-              <span class="material-symbols-outlined text-[18px] text-amber-400" style="font-variation-settings: 'FILL' 1;">star</span>
-              <span class="font-label-lg text-on-surface font-bold">${r.rating}.0</span>
+            <div class="flex items-center gap-1 text-amber-400">
+              <span class="material-symbols-outlined text-[17px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="font-heading font-bold text-sm text-white">${r.rating}.0</span>
             </div>
-            <span class="font-label-sm text-outline">${(r.createdAt || '').slice(0, 10)}</span>
+            <span class="text-[11px] text-slate-500">${(r.createdAt || '').slice(0, 10)}</span>
           </div>
-          <p class="font-body-md text-body-md text-on-surface-variant">“${r.comment || 'No comment.'}”</p>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">“${r.comment || 'No comment.'}”</p>
         </div>
-        <div class="mt-4 flex items-center gap-2">
-          <div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-[13px]">${r.reviewer_name.charAt(0)}</div>
-          <span class="font-label-md text-on-surface">${r.reviewer_name}</span>
+        <div class="pt-3 border-t border-[#1e202e] flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/30 text-blue-400 flex items-center justify-center font-bold text-xs">${r.reviewer_name.charAt(0)}</div>
+          <span class="text-xs font-semibold text-white">${r.reviewer_name}</span>
         </div>
       </div>`).join('');
   }
@@ -205,7 +216,7 @@
   function renderRelated(related) {
     const h3 = $$('main h3').find((s) => s.textContent.includes('Frequently Exchanged'));
     if (!h3) return;
-    const wrap = h3.closest('.pt-space-lg');
+    const wrap = h3.closest('.pt-space-lg') || h3.parentElement.parentElement;
     if (!wrap) return;
     const gridEl = $('.grid', wrap);
     if (!gridEl) return;
@@ -213,14 +224,14 @@
       const img = (l.images && l.images[0] && l.images[0].image_url) || `https://picsum.photos/seed/ct-${l.id}/600/450`;
       const price = l.salePrice != null ? CT.money(l.salePrice) : CT.money(l.rentPrice) + '/day';
       return `
-      <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between cursor-pointer" data-goto="/product.html?id=${l.id}">
+      <div class="bg-[#12131c] border border-[#222432] rounded-2xl overflow-hidden shadow-lg hover:border-blue-500/50 transition-all flex flex-col justify-between cursor-pointer group" data-goto="/product.html?id=${l.id}">
         <div>
-          <div class="relative aspect-[4/3] bg-surface-container">
-            <img class="w-full h-full object-cover" loading="lazy" src="${img}" alt="${l.product.name}">
+          <div class="relative aspect-[4/3] bg-[#0c0d13] overflow-hidden">
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" src="${img}" alt="${l.product.name}">
           </div>
-          <div class="p-3">
-            <p class="font-label-lg text-on-surface truncate">${l.product.name}</p>
-            <p class="font-label-sm text-secondary">${price} · ${l.product.condition}</p>
+          <div class="p-4">
+            <p class="font-heading font-bold text-xs text-white truncate">${l.product.name}</p>
+            <p class="text-[11px] font-semibold text-blue-400 mt-1">${price} · <span class="text-slate-400 font-normal">${l.product.condition}</span></p>
           </div>
         </div>
       </div>`;

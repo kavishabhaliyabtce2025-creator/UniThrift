@@ -1,53 +1,147 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wishlist · UniThrift</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}::-webkit-scrollbar{display:none;}}</style>
-<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wishlist · UniThrift</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <style>
+    :root {
+      --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-body);
+      }
+      body {
+        overscroll-behavior: none;
+        background-color: #f8fafc;
+        color: #0f172a;
+      }
+      h1, h2, h3, h4, h5, h6, .font-heading {
+        font-family: var(--font-heading) !important;
+      }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 </head>
-<body class="bg-[#121318] min-h-screen text-[#f8fafc]">
-<header class="fixed top-0 left-0 right-0 z-50 bg-[#121318]/90 backdrop-blur-md border-b border-[#272a34]">
-  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
-    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2">
-      <img alt="UniThrift" class="w-9 h-9 rounded-lg shadow-[0_0_12px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
-      <div class="flex flex-col leading-none">
-        <span class="font-semibold tracking-tight text-[17px] text-[#f8fafc]">UniThrift</span>
-        <span class="text-[10px] text-[#3b82f6] font-semibold uppercase tracking-[0.14em]">Academic Exchange</span>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+<!-- Uniform Standardized Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+  <div class="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+    <!-- Brand -->
+    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2.5 group shrink-0">
+      <div class="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-700 to-indigo-500 shadow-xs group-hover:shadow-sm transition-all">
+        <img alt="UniThrift" class="w-5 h-5 object-contain" src="/assets/logo.svg">
+      </div>
+      <div class="flex flex-col">
+        <span class="font-heading font-bold text-lg text-slate-900 tracking-tight leading-none group-hover:text-indigo-600 transition-colors">UniThrift</span>
+        <span class="text-[9px] text-indigo-600 uppercase tracking-[0.18em] font-semibold mt-0.5">Campus Exchange</span>
       </div>
     </a>
-    <nav class="hidden lg:flex items-center gap-1 text-sm">
-      <a data-path="marketplace" href="/index.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Marketplace</a>
-      <a data-path="post-an-item" href="/post.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Post an Item</a>
-      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">My Rentals &amp; Orders</a>
-      <a data-path="messages" href="/messages.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Messages</a>
+
+    <!-- Center Navigation Links -->
+    <nav class="hidden lg:flex items-center gap-1.5 text-xs font-medium">
+      <a data-path="marketplace" href="/index.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">Marketplace</a>
+      <a data-path="post-an-item" href="/post.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">Post an Item</a>
+      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">My Rentals &amp; Orders</a>
+      <a data-path="messages" href="/messages.html" class="px-3.5 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-xl">Messages</a>
+      <a data-path="admin-dashboard" href="/admin.html" class="admin-link px-3.5 py-2 text-amber-700 hover:text-amber-800 hover:bg-amber-50 transition-all rounded-xl" style="display:none;">Admin</a>
     </nav>
-    <div class="flex items-center gap-3">
-      <a data-path="wishlist" href="/wishlist.html" class="relative p-1.5 text-[#3b82f6] rounded-lg">
-        <span class="material-symbols-outlined text-[22px]">bookmark</span>
-        <span class="wishlist-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] text-white text-[9px] rounded-full items-center justify-center font-bold hidden">0</span>
+
+    <!-- Right Actions Hub -->
+    <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+      <a href="/post.html" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs transition-all hover:scale-[1.02]">
+        <span class="material-symbols-outlined text-[16px]">add</span>
+        <span>Post Item</span>
       </a>
-      <div class="flex items-center gap-2 pl-2">
-        <div class="hidden md:flex flex-col text-right leading-tight">
-          <span class="text-[13px] text-[#f8fafc]">Guest</span>
-          <span class="text-[11px] text-[#94a3b8]">Sign in to continue</span>
-        </div>
-        <img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-[#272a34]" src="/assets/avatar.png">
+      <a aria-label="Wishlist" data-path="wishlist" href="/wishlist.html" class="relative p-2 text-indigo-600 bg-indigo-50 border border-indigo-200 flex items-center justify-center rounded-xl">
+        <span class="material-symbols-outlined text-[20px]">bookmark</span>
+        <span class="wishlist-badge absolute top-1 right-1 w-4 h-4 bg-indigo-600 text-white text-[9px] rounded-full flex items-center justify-center font-bold shadow-xs" style="display:none;">0</span>
+      </a>
+      <a aria-label="Notifications" data-path="notifications" href="/messages.html" class="relative p-2 text-slate-500 hover:text-indigo-600 transition-colors flex items-center justify-center rounded-xl hover:bg-slate-100">
+        <span class="material-symbols-outlined text-[20px]">notifications</span>
+      </a>
+      <div id="header-auth-section" class="flex items-center">
+        <a href="/login.html" class="text-xs font-semibold text-slate-700 hover:text-slate-900 px-3.5 py-2 rounded-xl transition-all hover:bg-slate-100">Sign In</a>
       </div>
     </div>
   </div>
 </header>
 
-<main class="pt-24 pb-20 max-w-7xl mx-auto px-6">
-  <div class="mb-8">
-    <h1 class="text-2xl font-bold tracking-tight">My Wishlist</h1>
-    <p class="text-sm text-[#94a3b8] mt-1">Items you've bookmarked. Tap the bookmark again to remove one.</p>
+<main class="pt-24 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+  <div class="mb-8 bg-white border-2 border-slate-200/90 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2.5 mb-1.5">
+        <div class="w-9 h-9 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[20px]">bookmark</span>
+        </div>
+        <h1 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Saved Items</h1>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600">Textbooks and supplies you bookmarked for later. Click the bookmark badge on any card to remove it.</p>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <a href="/index.html" class="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs border border-indigo-700">
+        <span class="material-symbols-outlined text-[16px]">storefront</span>
+        <span>Browse Marketplace</span>
+      </a>
+    </div>
   </div>
   <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
 </main>
+
+<!-- Uniform Standardized Footer -->
+<footer class="w-full bg-white border-t border-slate-200 py-12 mt-16 text-slate-600">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined text-[18px]">school</span>
+          </div>
+          <span class="font-heading font-bold text-lg text-slate-900">UniThrift</span>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed font-normal">
+          A peer-to-peer university academic material exchange and textbook rental system designed to make learning materials accessible and affordable for every student.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm text-slate-900 mb-3">Campus Exchange Tips</h4>
+        <ul class="flex flex-col gap-2 text-xs text-slate-500">
+          <li class="flex items-center gap-1.5">• Meet inside monitored campus library exchange desks.</li>
+          <li class="flex items-center gap-1.5">• Inspect textbook condition before completing payment.</li>
+          <li class="flex items-center gap-1.5">• Return rentals on time to keep deposits secure.</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm text-slate-900 mb-3">Quick Links</h4>
+        <ul class="flex flex-col gap-2 text-xs text-slate-500">
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Marketplace Browse</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/post.html">Post a Listing</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/orders.html">My Orders &amp; Rentals</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm text-slate-900 mb-3">Departments</h4>
+        <ul class="flex flex-col gap-2 text-xs text-slate-500">
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Computer Science &amp; IT</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Electronics &amp; Communication</a></li>
+          <li><a class="hover:text-indigo-600 transition-colors" href="/index.html">Mechanical &amp; Civil</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-6 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-400 text-xs font-normal">
+      <p>&copy; 2026 UniThrift Campus Exchange.</p>
+    </div>
+  </div>
+</footer>
 
 <script src="/js/app.js"></script>
 <script>
@@ -58,11 +152,16 @@
     const d = await CT.api('/api/my/wishlist');
     const g = document.getElementById('grid');
     if (!d.wishlist.length) {
-      g.innerHTML = `<div class="col-span-full bg-[#1a1b21] border border-[#272a34] rounded-xl p-12 text-center">
-        <span class="material-symbols-outlined text-[40px] text-[#64748b]">bookmark_border</span>
-        <p class="text-[#f8fafc] font-title-md text-lg mt-2">Your wishlist is empty</p>
-        <p class="text-[#94a3b8] text-sm mt-1">Browse the marketplace and save items you want to buy or rent.</p>
-        <a href="/index.html" class="inline-block mt-4 px-4 py-2 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-lg text-sm transition-colors">Explore marketplace</a>
+      g.innerHTML = `<div class="col-span-full bg-white border-2 border-slate-200/90 rounded-2xl p-12 text-center shadow-sm">
+        <div class="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center mx-auto mb-3">
+          <span class="material-symbols-outlined text-[30px]">bookmark_border</span>
+        </div>
+        <p class="font-heading font-extrabold text-lg text-slate-900">Your wishlist is empty</p>
+        <p class="text-xs text-slate-600 mt-1 max-w-md mx-auto">Browse the marketplace and bookmark items you want to keep an eye on for purchase or rental.</p>
+        <a href="/index.html" class="inline-flex items-center gap-1.5 mt-5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs border border-indigo-700">
+          <span class="material-symbols-outlined text-[16px]">storefront</span>
+          <span>Explore Marketplace</span>
+        </a>
       </div>`;
       return;
     }

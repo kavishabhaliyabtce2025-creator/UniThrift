@@ -11,3 +11,4 @@ database/*.sqlite-journal
 *.log
 .DS_Store
 Thumbs.db
+.env

@@ -33,13 +33,22 @@
     return out;
   };
 
-  const groupByHeader = (text) => $$('aside .space-y-space-2xs')
-    .find((g) => { const l = g.querySelector(':scope > label'); return l && l.textContent.trim().startsWith(text); });
+  const groupByHeader = (text) => $$('aside .space-y-space-2xs, aside [data-filter-section]')
+    .find((g) => { const l = g.querySelector(':scope > label, :scope > h3'); return l && l.textContent.trim().startsWith(text); });
 
-  const catGroup = () => groupByHeader('Academic Category');
-  const deptGroup = () => groupByHeader('Department');
-  const catRows = () => catGroup() ? $$('label', catGroup().querySelector('.space-y-1\\.5')) : [];
-  const deptRows = () => deptGroup() ? $$('label', deptGroup().querySelector('.space-y-1\\.5')) : [];
+  const catRows = () => {
+    const byId = $$('#categoryFilterGroup label');
+    if (byId.length) return byId;
+    const g = groupByHeader('Academic Category');
+    return g ? $$('label', g) : [];
+  };
+
+  const deptRows = () => {
+    const byId = $$('#departmentFilterGroup label');
+    if (byId.length) return byId;
+    const g = groupByHeader('Department');
+    return g ? $$('label', g) : [];
+  };
 
   const state = {
     q: '', type: 'all', price: 2000, available: true, sort: 'popular',
@@ -90,11 +99,11 @@
     const g = grid();
     if (!g) return;
     if (!items.length) {
-      g.innerHTML = `<div class="col-span-4 bg-[#1a1b21] border border-[#272a34] rounded-xl p-10 text-center">
-        <span class="material-symbols-outlined text-[40px] text-[#64748b]">search_off</span>
-        <p class="text-[#f8fafc] font-title-md mt-2">No items match your filters</p>
-        <p class="text-[#94a3b8] font-body-sm mt-1">Try clearing filters or adjusting your budget range.</p>
-        <button class="mt-4 px-4 py-2 bg-primary text-white rounded-lg font-label-md" data-reset="1">Reset filters</button>
+      g.innerHTML = `<div class="col-span-4 bg-white border border-slate-200 rounded-2xl p-12 text-center shadow-xs">
+        <span class="material-symbols-outlined text-[44px] text-slate-400">search_off</span>
+        <p class="text-slate-900 font-bold text-base mt-2">No items match your filters</p>
+        <p class="text-slate-500 text-xs mt-1">Try clearing filters or adjusting your budget range.</p>
+        <button class="mt-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-colors" data-reset="1">Reset filters</button>
       </div>`;
       return;
     }
@@ -103,7 +112,7 @@
 
   function updateCounts(n, total) {
     const cb = countBox();
-    if (cb) cb.innerHTML = `Showing <span class="font-semibold text-[#f8fafc]">${n}</span> of ${total} items`;
+    if (cb) cb.innerHTML = `Showing <span class="font-bold text-slate-900">${n}</span> of ${total} items`;
     // type buttons
     const sale = all.filter((l) => ['SALE', 'BOTH'].includes(l.type)).length;
     const rent = all.filter((l) => ['RENT', 'BOTH'].includes(l.type)).length;
@@ -126,9 +135,9 @@
   function setTypeBtn(activeType) {
     $$('.filter-type-btn').forEach((b) => {
       const on = b.dataset.type === activeType;
-      b.className = `filter-type-btn py-1.5 rounded-lg transition-all ${on
-        ? 'border border-blue-500/40 bg-primary-container/10 text-primary font-semibold shadow-sm hover:bg-primary-container/20 hover:border-primary'
-        : 'text-[#94a3b8] hover:text-[#f8fafc]'}`;
+      b.className = `filter-type-btn py-1.5 px-3 rounded-xl text-xs font-semibold transition-all ${on
+        ? 'bg-white text-indigo-700 shadow-xs border border-slate-200/80 font-bold'
+        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'}`;
     });
   }
 
@@ -164,23 +173,63 @@
       })();
       if (avail) avail.checked = true;
       if (sortSel) sortSel.value = 'popular';
-      $$('header input[type="text"]').forEach((i) => { i.value = ''; });
-      const hs = $('header select');
-      if (hs) hs.value = 'all';
+      if (avail) avail.checked = true;
+      if (sortSel) sortSel.value = 'popular';
+      $$('input[type="text"]').forEach((i) => { i.value = ''; });
+      const deptSelect = $('#mainDeptSelect') || $('select[name="department"]') || $('header select');
+      if (deptSelect) deptSelect.value = 'all';
       initState();
       load();
     });
 
-    // search boxes (header + results toolbar)
+    // search inputs (main hero search bar + toolbar search)
+    let searchDebounce = null;
     $$('input[type="text"]').forEach((i) => {
-      i.addEventListener('keydown', (e) => { if (e.key === 'Enter') { state.q = i.value.trim(); apply(); } });
+      i.addEventListener('input', () => {
+        clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(() => {
+          state.q = i.value.trim();
+          apply();
+        }, 200);
+      });
+      i.addEventListener('keydown', (e) => { 
+        if (e.key === 'Enter') { 
+          clearTimeout(searchDebounce);
+          state.q = i.value.trim(); 
+          apply(); 
+        } 
+      });
     });
 
-    // header department select -> sidebar dept sync
-    const hs = $('header select');
-    if (hs) hs.addEventListener('change', () => {
+    // Main section search button
+    const mainBtn = $('#mainSearchBtn');
+    if (mainBtn) {
+      mainBtn.addEventListener('click', () => {
+        const inp = $('#mainSearchInput') || $('input[type="text"]');
+        if (inp) {
+          state.q = inp.value.trim();
+          apply();
+        }
+      });
+    }
+
+    // Quick tag pills (e.g. data-tag="Engineering Mechanics")
+    $$('[data-search-tag]').forEach((tagBtn) => {
+      tagBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tagText = tagBtn.dataset.searchTag || tagBtn.textContent.trim();
+        const inp = $('#mainSearchInput') || $('input[type="text"]');
+        if (inp) inp.value = tagText;
+        state.q = tagText;
+        apply();
+      });
+    });
+
+    // Main department select -> sidebar dept sync
+    const deptSelect = $('#mainDeptSelect') || $('select[name="department"]') || $('header select');
+    if (deptSelect) deptSelect.addEventListener('change', () => {
       const map = { all: null, cse: ['CSE'], ece: ['ECE', 'EEE'], mech: ['MECH'], civil: ['CIVIL'], humanities: [] };
-      const names = map[hs.value] || null;
+      const names = map[deptSelect.value] || null;
       if (names === null) {
         state.depts = new Set();
         deptRows().forEach((l) => { deptNamesFor(l.textContent).forEach((n) => state.depts.add(n)); });

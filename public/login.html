@@ -1,77 +1,129 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sign in · UniThrift</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet">
+<title>Sign in · UniThrift Campus Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}::-webkit-scrollbar{display:none;}}</style>
+<style>
+  :root {
+    --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  @layer base {
+    html, body { margin: 0; padding: 0; font-family: var(--font-body); }
+    h1, h2, h3, h4, h5, h6, .font-heading { font-family: var(--font-heading) !important; }
+  }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+</style>
 <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 </head>
-<body class="bg-[#121318] min-h-screen text-[#f8fafc]">
-<header class="fixed top-0 left-0 right-0 z-50 bg-[#121318]/90 backdrop-blur-md border-b border-[#272a34]">
-  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
-    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2">
-      <img alt="UniThrift" class="w-9 h-9 rounded-lg shadow-[0_0_12px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
-      <div class="flex flex-col leading-none">
-        <span class="font-semibold tracking-tight text-[17px] text-[#f8fafc]">UniThrift</span>
-        <span class="text-[10px] text-[#3b82f6] font-semibold uppercase tracking-[0.14em]">Academic Exchange</span>
+<body class="bg-[#f8fafc] min-h-screen text-slate-800 antialiased flex flex-col justify-between">
+<!-- Global Collegiate Modern Header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+  <div class="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+    <!-- Brand -->
+    <a data-path="marketplace" href="/index.html" class="flex items-center gap-2.5 group shrink-0">
+      <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-xs group-hover:bg-indigo-700 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">local_library</span>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-heading font-bold text-lg text-slate-900 tracking-tight leading-none group-hover:text-indigo-600 transition-colors">UniThrift</span>
+        <span class="text-[10px] text-indigo-600 font-semibold tracking-wide uppercase mt-0.5">Campus Marketplace</span>
       </div>
     </a>
-    <nav class="hidden lg:flex items-center gap-1 text-sm">
-      <a data-path="marketplace" href="/index.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Marketplace</a>
-      <a data-path="post-an-item" href="/post.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Post an Item</a>
-      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">My Rentals &amp; Orders</a>
-      <a data-path="messages" href="/messages.html" class="px-3 py-1.5 text-[#94a3b8] hover:text-[#f8fafc] rounded-lg transition-colors">Messages</a>
+
+    <!-- Center Navigation Links -->
+    <nav class="hidden lg:flex items-center gap-1 text-xs font-medium">
+      <a data-path="marketplace" href="/index.html" class="px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-lg">Marketplace</a>
+      <a data-path="post-an-item" href="/post.html" class="px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-lg">Sell or Rent</a>
+      <a data-path="my-rentals-and-orders" href="/orders.html" class="px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-lg">My Orders</a>
+      <a data-path="messages" href="/messages.html" class="px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all rounded-lg">Messages</a>
+      <a data-path="admin-dashboard" href="/admin.html" class="admin-link px-3 py-2 text-amber-700 hover:text-amber-800 hover:bg-amber-50 transition-all rounded-lg" style="display:none;">Admin</a>
     </nav>
-    <div class="flex items-center gap-3">
-      <a data-path="wishlist" href="/wishlist.html" class="relative p-1.5 text-[#94a3b8] hover:text-[#3b82f6] rounded-lg">
-        <span class="material-symbols-outlined text-[22px]">bookmark</span>
-        <span class="wishlist-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] text-white text-[9px] rounded-full items-center justify-center font-bold hidden">0</span>
+
+    <!-- Right Actions Hub -->
+    <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+      <a href="/post.html" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs transition-all hover:scale-[1.01]">
+        <span class="material-symbols-outlined text-[16px]">add</span>
+        <span>Post Item</span>
       </a>
-      <div class="flex items-center gap-2 pl-2">
-        <div class="hidden md:flex flex-col text-right leading-tight">
-          <span class="text-[13px] text-[#f8fafc]">Guest</span>
-          <span class="text-[11px] text-[#94a3b8]">Sign in to continue</span>
-        </div>
-        <img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-[#272a34]" src="/assets/avatar.png">
+      <a aria-label="Wishlist" data-path="wishlist" href="/wishlist.html" class="relative p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 transition-colors flex items-center justify-center rounded-xl">
+        <span class="material-symbols-outlined text-[20px]">bookmark</span>
+        <span class="wishlist-badge absolute top-1 right-1 w-4 h-4 bg-indigo-600 text-white text-[9px] rounded-full flex items-center justify-center font-bold shadow-xs" style="display:none;">0</span>
+      </a>
+      <a aria-label="Messages" data-path="notifications" href="/messages.html" class="relative p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 transition-colors flex items-center justify-center rounded-xl">
+        <span class="material-symbols-outlined text-[20px]">chat</span>
+      </a>
+      <div id="header-auth-section" class="flex items-center">
+        <a href="/register.html" class="text-xs font-semibold text-slate-700 hover:text-indigo-600 px-3.5 py-2 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/50 transition-all">
+          Sign Up
+        </a>
       </div>
     </div>
   </div>
 </header>
 
-<main class="pt-32 pb-24">
-  <div class="max-w-md mx-auto px-4">
-    <div class="bg-[#1a1b21] border border-[#272a34] rounded-2xl p-8 shadow-xl">
-      <div class="text-center mb-6">
-        <img alt="UniThrift" class="w-12 h-12 mx-auto rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)]" src="/assets/logo.svg">
-        <h1 class="text-xl font-bold mt-3">Welcome back, student</h1>
-        <p class="text-sm text-[#94a3b8] mt-1">Sign in with your registered campus email</p>
+<main class="pt-28 pb-20 flex-1 flex items-center justify-center">
+  <div class="w-full max-w-md mx-auto px-4">
+    <div class="bg-white border-2 border-slate-200/90 rounded-2xl p-7 sm:p-9 shadow-sm">
+      <div class="text-center mb-7">
+        <div class="w-12 h-12 mx-auto rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-700 mb-3 shadow-xs">
+          <span class="material-symbols-outlined text-[26px]">school</span>
+        </div>
+        <h1 class="font-heading text-2xl font-extrabold text-slate-900 tracking-tight">Welcome back</h1>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">Sign in with your campus student account</p>
       </div>
+
       <form id="login-form" class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-[#cbd5e1] mb-1.5" for="email">Email</label>
-          <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@campus.edu" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6] transition-colors">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5" for="email">Campus Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@campus.edu" class="w-full bg-slate-50/50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-colors text-sm">
         </div>
         <div>
-          <label class="block text-sm font-medium text-[#cbd5e1] mb-1.5" for="password">Password</label>
-          <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="••••••••" class="w-full bg-[#0d0e13] border border-[#272a34] rounded-lg px-3 py-2.5 text-[#f8fafc] placeholder:text-[#64748b] focus:outline-none focus:border-[#3b82f6] transition-colors">
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider" for="password">Password</label>
+            <span class="text-xs text-slate-400 font-medium">Student Portal</span>
+          </div>
+          <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="••••••••" class="w-full bg-slate-50/50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-colors text-sm">
         </div>
-        <p id="err" class="hidden text-sm text-rose-400"></p>
-        <button type="submit" class="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-white font-semibold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
+        <p id="err" class="hidden text-xs text-rose-700 bg-rose-50 border-2 border-rose-200 p-2.5 rounded-xl font-medium"></p>
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 text-sm mt-2 border border-indigo-700">
           <span class="material-symbols-outlined text-[18px]">login</span> Sign in
         </button>
       </form>
-      <p class="text-sm text-[#94a3b8] text-center mt-4">New to UniThrift? <a href="/register.html" class="text-[#3b82f6] hover:underline">Register with your student ID</a></p>
-      <div class="mt-6 bg-[#0d0e13] border border-[#272a34] rounded-lg p-3.5 text-xs text-[#94a3b8]">
-        <p class="font-semibold text-[#cbd5e1] mb-1.5">Demo accounts</p>
-        <p class="mb-1">Student: <code class="text-[#3b82f6]">ananya@campus.edu</code> / <code class="text-[#3b82f6]">Student@123</code></p>
-        <p>Admin: <code class="text-[#3b82f6]">admin@campus.edu</code> / <code class="text-[#3b82f6]">Admin@123</code></p>
+
+      <p class="text-xs text-slate-500 text-center mt-6">
+        New to UniThrift? <a href="/register.html" class="text-indigo-600 font-bold hover:underline">Create an account</a>
+      </p>
+
+      <div class="mt-6 bg-slate-50/80 border-2 border-slate-200/90 rounded-xl p-4 text-xs text-slate-600">
+        <p class="font-bold text-slate-900 mb-2 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-indigo-600">key</span>
+          Demo accounts
+        </p>
+        <div class="space-y-1.5">
+          <p class="flex items-center justify-between">
+            <span class="text-slate-500 font-medium">Student:</span>
+            <span><code class="text-indigo-700 bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded font-mono font-bold">ananya@campus.edu</code> / <code class="text-slate-700 bg-slate-200/60 border border-slate-300 px-1 py-0.5 rounded font-mono">Student@123</code></span>
+          </p>
+          <p class="flex items-center justify-between">
+            <span class="text-slate-500 font-medium">Admin:</span>
+            <span><code class="text-indigo-700 bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded font-mono font-bold">admin@campus.edu</code> / <code class="text-slate-700 bg-slate-200/60 border border-slate-300 px-1 py-0.5 rounded font-mono">Admin@123</code></span>
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </main>
+
+<footer class="bg-white border-t border-slate-200/80 py-6 text-center text-xs text-slate-500">
+  <p>© 2026 UniThrift Campus Marketplace · Built for students, verified by campus ID</p>
+</footer>
 
 <script src="/js/app.js"></script>
 <script>
@@ -82,6 +134,7 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const errEl = document.getElementById('err');
+    errEl.classList.add('hidden');
     try {
       await CT.api('/api/auth/login', { body: { email: form.email.value.trim(), password: form.password.value } });
       CT.showToast('Signed in successfully!');
